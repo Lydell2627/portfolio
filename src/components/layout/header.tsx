@@ -76,10 +76,12 @@ function PillWrapper({
             className={cn(
                 "flex items-center",
                 "h-12 md:h-14",
-                "px-5 md:px-6",
+                "px-3 md:px-6",
                 "transition-colors duration-300",
-                // Child backgrounds are visible ONLY when NOT scrolled
-                !isScrolled ? "bg-neutral-900 dark:bg-white border border-neutral-800 dark:border-neutral-200" : "bg-transparent border-transparent",
+                // Mobile: Always transparent (parent has the styling)
+                // Desktop: Show individual pill styling when NOT scrolled
+                "bg-transparent border-transparent",
+                !isScrolled && "md:bg-neutral-900 md:dark:bg-white md:border md:border-neutral-800 md:dark:border-neutral-200",
                 "text-white dark:text-neutral-900",
                 "rounded-full",
                 className
