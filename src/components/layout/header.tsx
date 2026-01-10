@@ -98,6 +98,8 @@ function PillWrapper({
 
 export function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useTheme();
@@ -108,12 +110,29 @@ export function Header() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 100);
+            const currentScrollY = window.scrollY;
+
+            // Determine visibility based on scroll direction
+            // Hide (false) if scrolling DOWN and not at top
+            // Show (true) if scrolling UP or at top
+            if (currentScrollY > 100) {
+                if (currentScrollY > lastScrollY) {
+                    setIsVisible(false); // Scrolling DOWN
+                } else {
+                    setIsVisible(true); // Scrolling UP
+                }
+            } else {
+                setIsVisible(true); // Always show at top
+            }
+
+            // Layout state for shape morphing
+            setIsScrolled(currentScrollY > 100);
+            setLastScrollY(currentScrollY);
         };
 
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [lastScrollY]); // Depend on lastScrollY to compare
 
     useEffect(() => {
         if (isMobileMenuOpen) {
@@ -128,7 +147,23 @@ export function Header() {
 
     return (
         <>
-            <header
+            {/* Hover Trigger Zone - Reveals navbar when mouse is at top */}
+            <div
+                className="fixed top-0 left-0 right-0 h-24 z-50 bg-transparent"
+                onMouseEnter={() => setIsVisible(true)}
+            />
+
+            <motion.header
+                animate={{
+                    y: isVisible ? 0 : "-100%"
+                }}
+                transition={{
+                    duration: 0.3,
+                    ease: "easeInOut",
+                    // Add delay ONLY when hiding (scrolling down)
+                    // This lets the user see the "morph" into a single pill before it vanishes
+                    delay: isVisible ? 0 : 0.6
+                }}
                 className={cn(
                     "fixed top-0 left-0 right-0 z-50",
                     "pt-4 md:pt-6 px-4 md:px-8",
@@ -244,7 +279,7 @@ export function Header() {
                     </PillWrapper>
 
                 </motion.nav>
-            </header >
+            </motion.header>
 
             {/* Mobile Menu Overlay */}
             <AnimatePresence>
