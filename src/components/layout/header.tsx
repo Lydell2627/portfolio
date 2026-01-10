@@ -182,11 +182,12 @@ export function Header() {
                         "flex items-center",
                         // Removed transition-all to let Framer Motion handle fluid layout changes completely
                         // Layout Logic:
-                        // Top: Full width, spread apart (justify-between)
-                        // Scrolled: Fit width, packed together (justify-center, gap-0)
+                        // Mobile: Always fit width, packed together (like scrolled state)
+                        // Desktop Top: Full width, spread apart (justify-between)
+                        // Desktop Scrolled: Fit width, packed together (justify-center, gap-0)
                         isScrolled
                             ? "w-fit bg-neutral-900 dark:bg-white border border-neutral-800 dark:border-neutral-200 rounded-full shadow-lg p-0 gap-0"
-                            : "w-full bg-transparent border-none p-0 gap-3 justify-between"
+                            : "w-fit bg-neutral-900 dark:bg-white border border-neutral-800 dark:border-neutral-200 rounded-full shadow-lg p-0 gap-0 md:w-full md:bg-transparent md:dark:bg-transparent md:border-none md:shadow-none md:gap-3 md:justify-between md:rounded-none"
                     )}
                     transition={{
                         type: "spring",
@@ -196,8 +197,12 @@ export function Header() {
                     }}
                 >
                     {/* Group 1: Logo */}
-                    <PillWrapper isScrolled={isScrolled}>
-                        <Link href="/" className="flex items-center gap-3">
+                    <PillWrapper
+                        isScrolled={isScrolled}
+                        // Mobile: Always transparent bg (parent has bg)
+                        className="bg-transparent border-transparent md:bg-neutral-900 md:dark:bg-white md:border-neutral-800"
+                    >
+                        <Link href="/" className="flex items-center gap-3 pl-2 md:pl-0">
                             <motion.div
                                 whileHover={{ rotate: 90 }}
                                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
@@ -232,8 +237,12 @@ export function Header() {
                     </PillWrapper>
 
                     {/* Group 3: CTA + Theme */}
-                    <PillWrapper isScrolled={isScrolled}>
-                        <div className="flex items-center gap-4">
+                    <PillWrapper
+                        isScrolled={isScrolled}
+                        // Mobile: Always transparent bg
+                        className="bg-transparent border-transparent md:bg-neutral-900 md:dark:bg-white md:border-neutral-800"
+                    >
+                        <div className="flex items-center gap-2 md:gap-4 pr-1 md:pr-0">
                             {/* Theme Toggle */}
                             <motion.button
                                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -250,10 +259,11 @@ export function Header() {
                                 ))}
                             </motion.button>
 
-                            {/* Book a call CTA */}
+                            {/* Book a call CTA - Hidden on Mobile to save space */}
                             <Link
                                 href="/contact"
                                 className={cn(
+                                    "hidden md:inline-flex", // Hide on mobile
                                     "px-4 py-2",
                                     "text-xs font-medium",
                                     "!bg-white !text-black",
@@ -265,15 +275,15 @@ export function Header() {
                                 Book a call
                             </Link>
 
-                            {/* Mobile Menu Button */}
+                            {/* Mobile Menu Button - Larger click area */}
                             <motion.button
                                 onClick={() => setIsMobileMenuOpen(true)}
-                                className="md:hidden w-8 h-8 flex items-center justify-center"
+                                className="md:hidden w-10 h-10 flex items-center justify-center"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 aria-label="Open menu"
                             >
-                                <Menu className="w-4 h-4" />
+                                <Menu className="w-5 h-5" />
                             </motion.button>
                         </div>
                     </PillWrapper>
