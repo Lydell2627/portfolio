@@ -204,7 +204,9 @@ export function Header() {
                     >
                         <Link href="/" className="flex items-center gap-3 pl-2 md:pl-0">
                             <motion.div
-                                whileHover={{ rotate: 90 }}
+                                animate={{ rotate: isScrolled ? 360 : 0 }}
+                                whileHover={{ rotate: isScrolled ? 450 : 90 }}
+                                whileTap={{ scale: 0.9, rotate: isScrolled ? 315 : -45 }}
                                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
                             >
                                 <LogoIcon className="w-5 h-5" />
