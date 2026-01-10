@@ -17,9 +17,9 @@ const navLinks = [
 // Ultra smooth spring
 const smoothSpring = {
     type: "spring" as const,
-    stiffness: 100,
+    stiffness: 120,
     damping: 20,
-    mass: 1,
+    mass: 0.8,
 };
 
 // Logo SVG Component
@@ -72,19 +72,11 @@ export function Header() {
         };
     }, [isMobileMenuOpen]);
 
-    // Determine active link
     const getActivePath = () => {
         if (pathname === "/" || pathname.startsWith("/projects")) return "/";
         return pathname;
     };
     const activePath = getActivePath();
-
-    // Base pill styles (shared)
-    const pillBase = cn(
-        "bg-white dark:bg-neutral-900",
-        "border border-neutral-200 dark:border-neutral-800",
-        "transition-shadow duration-500"
-    );
 
     return (
         <>
@@ -95,194 +87,205 @@ export function Header() {
                     "pointer-events-none"
                 )}
             >
-                {/* Desktop Navigation */}
-                <div className="hidden md:block relative h-14">
-                    {/* LEFT PILL - Logo (corner when at top) */}
-                    <motion.div
-                        className={cn(
-                            "pointer-events-auto absolute",
-                            pillBase,
-                            "h-14 flex items-center px-5",
-                            isScrolled ? "shadow-lg" : "shadow-sm"
-                        )}
-                        initial={false}
-                        animate={{
-                            // At top: left edge with full pill shape
-                            // Scrolled: move to center and flatten inner edge
-                            left: isScrolled ? "50%" : 0,
-                            x: isScrolled ? "-50%" : 0,
-                            marginLeft: isScrolled ? -220 : 0,
-                            borderRadius: isScrolled ? "9999px 0 0 9999px" : "9999px",
-                            borderRightWidth: isScrolled ? 0 : 1,
-                        }}
-                        transition={smoothSpring}
-                    >
-                        <Link href="/" className="flex items-center gap-2.5">
-                            <motion.div
-                                whileHover={{ rotate: 90 }}
-                                transition={smoothSpring}
-                            >
-                                <LogoIcon className="w-5 h-5 text-neutral-900 dark:text-white" />
-                            </motion.div>
-                            <div className="flex flex-col -space-y-0.5">
-                                <span className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-white">
-                                    STUDIO
-                                </span>
-                                <span className="text-[10px] text-neutral-500 dark:text-neutral-400">
-                                    Design Agency
-                                </span>
-                            </div>
-                        </Link>
-
-                        {/* Divider - only visible when merged */}
-                        <motion.div
-                            className="bg-neutral-200 dark:bg-neutral-700"
-                            initial={false}
-                            animate={{
-                                width: isScrolled ? 1 : 0,
-                                height: 24,
-                                marginLeft: isScrolled ? 20 : 0,
-                                opacity: isScrolled ? 1 : 0,
-                            }}
-                            transition={smoothSpring}
-                        />
-                    </motion.div>
-
-                    {/* CENTER PILL - Navigation */}
+                {/* Desktop Navigation - All content in ONE flex container */}
+                <div className="hidden md:flex justify-center">
                     <motion.nav
-                        className={cn(
-                            "pointer-events-auto absolute left-1/2",
-                            pillBase,
-                            "h-14 flex items-center",
-                            isScrolled ? "shadow-lg" : "shadow-sm"
-                        )}
+                        className="pointer-events-auto flex items-center relative"
                         initial={false}
                         animate={{
-                            x: "-50%",
-                            paddingLeft: isScrolled ? 20 : 8,
-                            paddingRight: isScrolled ? 20 : 8,
-                            borderRadius: isScrolled ? 0 : "9999px",
-                            borderLeftWidth: isScrolled ? 0 : 1,
-                            borderRightWidth: isScrolled ? 0 : 1,
+                            gap: isScrolled ? 0 : 16,
                         }}
                         transition={smoothSpring}
                     >
-                        <div className="flex items-center gap-1">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    className="relative px-4 py-2"
-                                >
-                                    {activePath === link.href && (
-                                        <motion.div
-                                            layoutId="activeIndicator"
-                                            className={cn(
-                                                "absolute inset-0 rounded-full",
-                                                isScrolled
-                                                    ? "bg-neutral-100 dark:bg-neutral-800"
-                                                    : "bg-neutral-900 dark:bg-white"
-                                            )}
-                                            transition={smoothSpring}
-                                        />
-                                    )}
-                                    <span
-                                        className={cn(
-                                            "relative z-10 text-sm font-medium transition-colors duration-300",
-                                            activePath === link.href
-                                                ? isScrolled
-                                                    ? "text-neutral-900 dark:text-white"
-                                                    : "text-white dark:text-neutral-900"
-                                                : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
-                                        )}
-                                    >
-                                        {link.label}
-                                    </span>
-                                    <sup
-                                        className={cn(
-                                            "relative z-10 text-[9px] ml-0.5 transition-opacity duration-300",
-                                            activePath === link.href
-                                                ? isScrolled
-                                                    ? "opacity-60"
-                                                    : "text-white/60 dark:text-neutral-900/60"
-                                                : "opacity-40"
-                                        )}
-                                    >
-                                        {link.number}
-                                    </sup>
-                                </Link>
-                            ))}
-                        </div>
-                    </motion.nav>
-
-                    {/* RIGHT PILL - Theme Toggle & CTA (corner when at top) */}
-                    <motion.div
-                        className={cn(
-                            "pointer-events-auto absolute top-0",
-                            pillBase,
-                            "h-14 flex items-center gap-4 px-5",
-                            isScrolled ? "shadow-lg" : "shadow-sm"
-                        )}
-                        initial={false}
-                        animate={{
-                            // At top: right edge with full pill shape
-                            // Scrolled: move to center and flatten inner edge
-                            right: isScrolled ? "50%" : 0,
-                            x: isScrolled ? "50%" : 0,
-                            marginRight: isScrolled ? -220 : 0,
-                            borderRadius: isScrolled ? "0 9999px 9999px 0" : "9999px",
-                            borderLeftWidth: isScrolled ? 0 : 1,
-                        }}
-                        transition={smoothSpring}
-                    >
-                        {/* Divider - only visible when merged */}
+                        {/* Unified background that appears when merged */}
                         <motion.div
-                            className="bg-neutral-200 dark:bg-neutral-700"
+                            className="absolute inset-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full -z-10"
                             initial={false}
                             animate={{
-                                width: isScrolled ? 1 : 0,
-                                height: 24,
-                                marginRight: isScrolled ? 16 : 0,
                                 opacity: isScrolled ? 1 : 0,
+                                scale: isScrolled ? 1 : 0.98,
                             }}
                             transition={smoothSpring}
+                            style={{
+                                boxShadow: isScrolled
+                                    ? "0 4px 20px rgba(0,0,0,0.1)"
+                                    : "0 2px 10px rgba(0,0,0,0.05)"
+                            }}
                         />
 
-                        {/* Theme Toggle */}
-                        <motion.button
-                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="w-8 h-8 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
-                            whileHover={{ rotate: 15 }}
-                            whileTap={{ scale: 0.9 }}
-                            aria-label="Toggle theme"
+                        {/* LEFT SECTION - Logo */}
+                        <motion.div
+                            className="relative h-14 flex items-center px-5"
+                            initial={false}
+                            transition={smoothSpring}
                         >
-                            {mounted && (theme === "dark" ? (
-                                <Sun className="w-4 h-4" />
-                            ) : (
-                                <Moon className="w-4 h-4" />
-                            ))}
-                        </motion.button>
+                            {/* Individual background - fades out when merged */}
+                            <motion.div
+                                className="absolute inset-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full -z-10"
+                                initial={false}
+                                animate={{
+                                    opacity: isScrolled ? 0 : 1,
+                                }}
+                                transition={smoothSpring}
+                                style={{ boxShadow: "0 2px 10px rgba(0,0,0,0.05)" }}
+                            />
 
-                        {/* CTA */}
-                        <Link
-                            href="/contact"
-                            className="text-sm font-medium text-neutral-900 dark:text-white hover:opacity-70 transition-opacity"
+                            <Link href="/" className="flex items-center gap-2.5">
+                                <motion.div
+                                    whileHover={{ rotate: 90 }}
+                                    transition={smoothSpring}
+                                >
+                                    <LogoIcon className="w-5 h-5 text-neutral-900 dark:text-white" />
+                                </motion.div>
+                                <div className="flex flex-col -space-y-0.5">
+                                    <span className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-white">
+                                        STUDIO
+                                    </span>
+                                    <span className="text-[10px] text-neutral-500 dark:text-neutral-400">
+                                        Design Agency
+                                    </span>
+                                </div>
+                            </Link>
+
+                            {/* Divider - appears when merged */}
+                            <motion.div
+                                className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-6 bg-neutral-200 dark:bg-neutral-700"
+                                initial={false}
+                                animate={{
+                                    opacity: isScrolled ? 1 : 0,
+                                    x: isScrolled ? 8 : 0,
+                                }}
+                                transition={smoothSpring}
+                            />
+                        </motion.div>
+
+                        {/* CENTER SECTION - Navigation */}
+                        <motion.div
+                            className="relative h-14 flex items-center px-2"
+                            initial={false}
+                            transition={smoothSpring}
                         >
-                            Book a call
-                        </Link>
-                    </motion.div>
+                            {/* Individual background - fades out when merged */}
+                            <motion.div
+                                className="absolute inset-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full -z-10"
+                                initial={false}
+                                animate={{
+                                    opacity: isScrolled ? 0 : 1,
+                                }}
+                                transition={smoothSpring}
+                                style={{ boxShadow: "0 2px 10px rgba(0,0,0,0.05)" }}
+                            />
+
+                            <div className="flex items-center gap-1 px-2">
+                                {navLinks.map((link) => (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className="relative px-4 py-2"
+                                    >
+                                        {activePath === link.href && (
+                                            <motion.div
+                                                layoutId="activeIndicator"
+                                                className={cn(
+                                                    "absolute inset-0 rounded-full",
+                                                    isScrolled
+                                                        ? "bg-neutral-100 dark:bg-neutral-800"
+                                                        : "bg-neutral-900 dark:bg-white"
+                                                )}
+                                                transition={smoothSpring}
+                                            />
+                                        )}
+                                        <span
+                                            className={cn(
+                                                "relative z-10 text-sm font-medium transition-colors duration-300",
+                                                activePath === link.href
+                                                    ? isScrolled
+                                                        ? "text-neutral-900 dark:text-white"
+                                                        : "text-white dark:text-neutral-900"
+                                                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+                                            )}
+                                        >
+                                            {link.label}
+                                        </span>
+                                        <sup
+                                            className={cn(
+                                                "relative z-10 text-[9px] ml-0.5 transition-opacity duration-300",
+                                                activePath === link.href
+                                                    ? isScrolled
+                                                        ? "opacity-60"
+                                                        : "text-white/60 dark:text-neutral-900/60"
+                                                    : "opacity-40"
+                                            )}
+                                        >
+                                            {link.number}
+                                        </sup>
+                                    </Link>
+                                ))}
+                            </div>
+
+                            {/* Divider - appears when merged */}
+                            <motion.div
+                                className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-6 bg-neutral-200 dark:bg-neutral-700"
+                                initial={false}
+                                animate={{
+                                    opacity: isScrolled ? 1 : 0,
+                                    x: isScrolled ? 8 : 0,
+                                }}
+                                transition={smoothSpring}
+                            />
+                        </motion.div>
+
+                        {/* RIGHT SECTION - Theme & CTA */}
+                        <motion.div
+                            className="relative h-14 flex items-center gap-4 px-5"
+                            initial={false}
+                            transition={smoothSpring}
+                        >
+                            {/* Individual background - fades out when merged */}
+                            <motion.div
+                                className="absolute inset-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full -z-10"
+                                initial={false}
+                                animate={{
+                                    opacity: isScrolled ? 0 : 1,
+                                }}
+                                transition={smoothSpring}
+                                style={{ boxShadow: "0 2px 10px rgba(0,0,0,0.05)" }}
+                            />
+
+                            <motion.button
+                                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                                className="w-8 h-8 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                                whileHover={{ rotate: 15 }}
+                                whileTap={{ scale: 0.9 }}
+                                aria-label="Toggle theme"
+                            >
+                                {mounted && (theme === "dark" ? (
+                                    <Sun className="w-4 h-4" />
+                                ) : (
+                                    <Moon className="w-4 h-4" />
+                                ))}
+                            </motion.button>
+
+                            <Link
+                                href="/contact"
+                                className="text-sm font-medium text-neutral-900 dark:text-white hover:opacity-70 transition-opacity"
+                            >
+                                Book a call
+                            </Link>
+                        </motion.div>
+                    </motion.nav>
                 </div>
 
                 {/* Mobile Navigation */}
                 <div className="md:hidden">
                     <motion.nav
                         className={cn(
-                            pillBase,
-                            "rounded-full",
                             "pointer-events-auto",
                             "h-12 px-4",
                             "flex items-center justify-between w-full",
-                            isScrolled ? "shadow-lg" : "shadow-sm"
+                            "bg-white dark:bg-neutral-900",
+                            "border border-neutral-200 dark:border-neutral-800",
+                            "rounded-full shadow-sm"
                         )}
                         initial={{ y: -20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
