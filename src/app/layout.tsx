@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/providers/theme-provider";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,6 +12,16 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
   display: "swap",
+  style: ["normal", "italic"],
+});
+
+// Premium editorial font for special accents
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  display: "swap",
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -23,13 +30,14 @@ export const metadata: Metadata = {
     template: "%s | STUDIO",
   },
   description:
-    "A creative design agency crafting premium digital experiences. We specialize in UI/UX design, web development, and brand identity.",
+    "Award-winning creative design agency crafting premium digital experiences. We specialize in UI/UX design, web development, and brand identity.",
   keywords: [
     "UI/UX Design",
     "Web Design",
     "Product Design",
     "Brand Identity",
     "Digital Agency",
+    "Creative Studio",
   ],
   authors: [{ name: "STUDIO" }],
   openGraph: {
@@ -38,13 +46,13 @@ export const metadata: Metadata = {
     siteName: "STUDIO",
     title: "STUDIO | Creative Design Agency",
     description:
-      "A creative design agency crafting premium digital experiences.",
+      "Award-winning creative design agency crafting premium digital experiences.",
   },
   twitter: {
     card: "summary_large_image",
     title: "STUDIO | Creative Design Agency",
     description:
-      "A creative design agency crafting premium digital experiences.",
+      "Award-winning creative design agency crafting premium digital experiences.",
   },
   robots: {
     index: true,
@@ -60,16 +68,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
+        className={`${inter.variable} ${playfair.variable} ${cormorant.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
-        <ThemeProvider>
-          <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );

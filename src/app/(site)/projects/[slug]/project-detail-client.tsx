@@ -1,15 +1,58 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { type Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
+import { urlFor } from "@/lib/sanity";
+
+// Support both Sanity and legacy project types
+interface SanityProject {
+    _id: string;
+    title: string;
+    slug: string;
+    description?: string;
+    category?: string;
+    tools?: string[];
+    client?: string;
+    role?: string;
+    duration?: string;
+    year?: number;
+    thumbnail?: { asset: { _ref: string } };
+    heroImage?: { asset: { _ref: string } };
+    content?: unknown[];
+}
+
+interface LegacyProject {
+    slug: string;
+    title: string;
+    description: string;
+    category: string;
+    tools: string[];
+    client?: string;
+    role?: string;
+    duration?: string;
+    year?: number;
+    content: Array<{
+        type: "text" | "image" | "gallery";
+        heading?: string;
+        content?: string;
+        caption?: string;
+        images?: string[];
+    }>;
+}
+
+type Project = SanityProject | LegacyProject;
 
 interface ProjectDetailClientProps {
     project: Project;
-    prevProject: Project | null;
-    nextProject: Project | null;
+    prevProject: { slug: string; title: string } | null;
+    nextProject: { slug: string; title: string } | null;
+}
+
+function isSanityProject(project: Project): project is SanityProject {
+    return '_id' in project;
 }
 
 export function ProjectDetailClient({
@@ -17,6 +60,23 @@ export function ProjectDetailClient({
     prevProject,
     nextProject,
 }: ProjectDetailClientProps) {
+    const category = project.category || "Design";
+    const tools = project.tools || [];
+    const client = project.client || "Personal Project";
+    const role = project.role || "Designer & Developer";
+    const duration = project.duration || "Ongoing";
+    const year = project.year || new Date().getFullYear();
+
+    // Get hero image URL for Sanity projects
+    const heroImageUrl = isSanityProject(project) && project.heroImage
+        ? urlFor(project.heroImage).width(1920).height(1080).url()
+        : isSanityProject(project) && project.thumbnail
+            ? urlFor(project.thumbnail).width(1920).height(1080).url()
+            : null;
+
+    // Check if content exists and is array
+    const hasLegacyContent = !isSanityProject(project) && Array.isArray(project.content);
+
     return (
         <article className="pt-24 md:pt-32">
             {/* ═══════════════════════════════════════════════════════════════════
@@ -31,7 +91,7 @@ export function ProjectDetailClient({
                         transition={{ duration: 0.7 }}
                     >
                         <p className="text-sm text-[var(--text-secondary)] mb-3">
-                            ({project.category})
+                            ({category})
                         </p>
                         <h1 className="font-serif">{project.title}</h1>
                     </motion.div>
@@ -60,7 +120,17 @@ export function ProjectDetailClient({
                 className="container mb-16 md:mb-24"
             >
                 <div className="project-card aspect-[16/9] relative overflow-hidden bg-[var(--surface)]">
-                    <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
+                    {heroImageUrl ? (
+                        <Image
+                            src={heroImageUrl}
+                            alt={project.title}
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                    ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
+                    )}
                 </div>
             </motion.section>
 
@@ -80,115 +150,119 @@ export function ProjectDetailClient({
                             Client
                         </p>
                         <p className="text-base font-medium">
-                            {project.client || "Personal Project"}
+                            {client}
                         </p>
                     </div>
                     <div>
                         <p className="text-xs uppercase tracking-wider text-[var(--text-tertiary)] mb-2">
                             Role
                         </p>
-                        <p className="text-base font-medium">{project.role}</p>
+                        <p className="text-base font-medium">{role}</p>
                     </div>
                     <div>
                         <p className="text-xs uppercase tracking-wider text-[var(--text-tertiary)] mb-2">
                             Duration
                         </p>
-                        <p className="text-base font-medium">{project.duration}</p>
+                        <p className="text-base font-medium">{duration}</p>
                     </div>
                     <div>
                         <p className="text-xs uppercase tracking-wider text-[var(--text-tertiary)] mb-2">
                             Year
                         </p>
-                        <p className="text-base font-medium">{project.year}</p>
+                        <p className="text-base font-medium">{year}</p>
                     </div>
                 </motion.div>
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════════
-          CASE STUDY CONTENT
+          CASE STUDY CONTENT (Legacy format)
           ═══════════════════════════════════════════════════════════════════ */}
-            <section className="container mb-16 md:mb-24">
-                <div className="max-w-3xl mx-auto space-y-20">
-                    {project.content.map((section, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.7 }}
-                        >
-                            {section.type === "text" && (
-                                <div>
-                                    {section.heading && (
-                                        <h2 className="font-serif text-3xl md:text-4xl mb-8">
-                                            {section.heading}
-                                        </h2>
-                                    )}
-                                    <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
-                                        {section.content}
-                                    </p>
-                                </div>
-                            )}
-
-                            {section.type === "image" && (
-                                <figure>
-                                    <div className="project-card aspect-[16/10] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
-                                    {section.caption && (
-                                        <figcaption className="mt-4 text-sm text-[var(--text-tertiary)] text-center italic">
-                                            {section.caption}
-                                        </figcaption>
-                                    )}
-                                </figure>
-                            )}
-
-                            {section.type === "gallery" && (
-                                <figure>
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        {section.images?.map((_, imgIndex) => (
-                                            <div
-                                                key={imgIndex}
-                                                className="project-card aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900"
-                                            />
-                                        ))}
+            {hasLegacyContent && (
+                <section className="container mb-16 md:mb-24">
+                    <div className="max-w-3xl mx-auto space-y-20">
+                        {(project as LegacyProject).content.map((section, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-100px" }}
+                                transition={{ duration: 0.7 }}
+                            >
+                                {section.type === "text" && (
+                                    <div>
+                                        {section.heading && (
+                                            <h2 className="font-serif text-3xl md:text-4xl mb-8">
+                                                {section.heading}
+                                            </h2>
+                                        )}
+                                        <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
+                                            {section.content}
+                                        </p>
                                     </div>
-                                    {section.caption && (
-                                        <figcaption className="mt-4 text-sm text-[var(--text-tertiary)] text-center italic">
-                                            {section.caption}
-                                        </figcaption>
-                                    )}
-                                </figure>
-                            )}
-                        </motion.div>
-                    ))}
-                </div>
-            </section>
+                                )}
+
+                                {section.type === "image" && (
+                                    <figure>
+                                        <div className="project-card aspect-[16/10] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
+                                        {section.caption && (
+                                            <figcaption className="mt-4 text-sm text-[var(--text-tertiary)] text-center italic">
+                                                {section.caption}
+                                            </figcaption>
+                                        )}
+                                    </figure>
+                                )}
+
+                                {section.type === "gallery" && (
+                                    <figure>
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            {section.images?.map((_, imgIndex) => (
+                                                <div
+                                                    key={imgIndex}
+                                                    className="project-card aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900"
+                                                />
+                                            ))}
+                                        </div>
+                                        {section.caption && (
+                                            <figcaption className="mt-4 text-sm text-[var(--text-tertiary)] text-center italic">
+                                                {section.caption}
+                                            </figcaption>
+                                        )}
+                                    </figure>
+                                )}
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+            )}
 
             {/* ═══════════════════════════════════════════════════════════════════
           TOOLS USED
           ═══════════════════════════════════════════════════════════════════ */}
-            <motion.section
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="container mb-16 md:mb-24"
-            >
-                <div className="max-w-3xl mx-auto">
-                    <h3 className="text-xs uppercase tracking-wider text-[var(--text-tertiary)] mb-6">
-                        Tools & Technologies
-                    </h3>
-                    <div className="flex flex-wrap gap-3">
-                        {project.tools.map((tool) => (
-                            <span
-                                key={tool}
-                                className="text-sm px-4 py-2 rounded-full border border-[var(--border)]"
-                            >
-                                {tool}
-                            </span>
-                        ))}
+            {tools.length > 0 && (
+                <motion.section
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="container mb-16 md:mb-24"
+                >
+                    <div className="max-w-3xl mx-auto">
+                        <h3 className="text-xs uppercase tracking-wider text-[var(--text-tertiary)] mb-6">
+                            Tools & Technologies
+                        </h3>
+                        <div className="flex flex-wrap gap-3">
+                            {tools.map((tool) => (
+                                <span
+                                    key={tool}
+                                    className="text-sm px-4 py-2 rounded-full border border-[var(--border)]"
+                                >
+                                    {tool}
+                                </span>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </motion.section>
+                </motion.section>
+            )}
 
             {/* ═══════════════════════════════════════════════════════════════════
           NEXT/PREV NAVIGATION

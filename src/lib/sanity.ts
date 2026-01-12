@@ -1,0 +1,117 @@
+import { createClient } from 'next-sanity'
+import imageUrlBuilder from '@sanity/image-url'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+
+export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'your-project-id'
+export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
+export const apiVersion = '2024-01-01'
+
+export const client = createClient({
+    projectId,
+    dataset,
+    apiVersion,
+    useCdn: true, // Set to false for real-time updates during preview
+})
+
+// Image URL builder
+const builder = imageUrlBuilder(client)
+
+export function urlFor(source: SanityImageSource) {
+    return builder.image(source)
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// QUERIES
+// ═══════════════════════════════════════════════════════════════════
+
+// Projects
+export const allProjectsQuery = `*[_type == "project"] | order(order asc, year desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    thumbnail,
+    heroImage,
+    category,
+    tools,
+    client,
+    role,
+    duration,
+    year,
+    featured,
+    content
+}`
+
+export const featuredProjectsQuery = `*[_type == "project" && featured == true] | order(order asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    thumbnail,
+    heroImage,
+    category,
+    tools,
+    client,
+    year,
+    featured
+}`
+
+export const projectBySlugQuery = `*[_type == "project" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    content,
+    thumbnail,
+    heroImage,
+    category,
+    tools,
+    client,
+    role,
+    duration,
+    year
+}`
+
+// Testimonials
+export const allTestimonialsQuery = `*[_type == "testimonial"] | order(order asc) {
+    _id,
+    quote,
+    author,
+    role,
+    company,
+    image
+}`
+
+// Site Settings
+export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
+    siteName,
+    siteTagline,
+    siteDescription,
+    contactEmail,
+    socialLinks,
+    stats
+}`
+
+// ═══════════════════════════════════════════════════════════════════
+// FETCH FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════
+
+export async function getProjects() {
+    return client.fetch(allProjectsQuery)
+}
+
+export async function getFeaturedProjects() {
+    return client.fetch(featuredProjectsQuery)
+}
+
+export async function getProjectBySlug(slug: string) {
+    return client.fetch(projectBySlugQuery, { slug })
+}
+
+export async function getTestimonials() {
+    return client.fetch(allTestimonialsQuery)
+}
+
+export async function getSiteSettings() {
+    return client.fetch(siteSettingsQuery)
+}

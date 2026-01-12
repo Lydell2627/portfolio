@@ -4,6 +4,11 @@ import { motion, useScroll, useTransform, useSpring, useInView } from "framer-mo
 import { useRef } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { SplitText } from "@/components/ui/split-text";
+import { GradientText } from "@/components/ui/gradient-text";
+import { ShinyText } from "@/components/ui/shiny-text";
+import { BlurText } from "@/components/ui/blur-text";
+import { LetterPullUp } from "@/components/ui/letter-pullup";
 
 // Premium spring physics for buttery smooth animations
 const smoothSpring = {
@@ -188,16 +193,17 @@ function ProcessSection({
                             {approach.number}
                         </motion.span>
 
-                        {/* Title */}
-                        <motion.h2
-                            className="font-serif text-4xl md:text-5xl lg:text-6xl"
+                        {/* Title with LetterPullUp animation */}
+                        <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ ...smoothSpring, delay: 0.2 }}
                         >
-                            {approach.title}
-                        </motion.h2>
+                            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl">
+                                <LetterPullUp text={approach.title} delay={0.04} duration={0.5} />
+                            </h2>
+                        </motion.div>
                     </div>
 
                     {/* Right Column - Paragraphs with scroll-driven opacity */}
@@ -235,43 +241,49 @@ export default function ApproachPage() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     return (
-        <div ref={containerRef} className="pt-20 md:pt-28">
+        <div ref={containerRef}>
             {/* ═══════════════════════════════════════════════════════════════════
                 HERO SECTION
             ═══════════════════════════════════════════════════════════════════ */}
-            <section className="min-h-[80vh] md:min-h-[90vh] flex flex-col items-center justify-center relative px-6">
+            <section className="min-h-screen flex flex-col items-center justify-center relative px-6">
                 <motion.div
                     className="text-center max-w-5xl mx-auto"
                     initial={{ opacity: 0, y: 60 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    {/* Main Headline - Ashcamp style */}
+                    {/* Main Headline - Ashcamp style with SplitText */}
                     <h1 className="font-serif leading-[1.05]">
-                        <motion.span
-                            className="block"
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                        >
-                            The first step
-                        </motion.span>
-                        <motion.span
-                            className="block"
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                        >
-                            of the process
-                        </motion.span>
-                        <motion.span
-                            className="block italic text-[var(--text-secondary)]"
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-                        >
-                            is to trust the process.
-                        </motion.span>
+                        <span className="block">
+                            <SplitText
+                                text="The first step"
+                                delay={40}
+                                animateBy="letters"
+                                duration={0.5}
+                            />
+                        </span>
+                        <span className="block">
+                            <SplitText
+                                text="of the process"
+                                delay={40}
+                                animateBy="letters"
+                                duration={0.5}
+                            />
+                        </span>
+                        <span className="block italic text-[var(--text-secondary)]">
+                            <SplitText
+                                text="is to"
+                                delay={40}
+                                animateBy="letters"
+                                duration={0.5}
+                            />{" "}
+                            <GradientText
+                                colors={["#8B5CF6", "#EC4899", "#6366F1", "#8B5CF6"]}
+                                animationSpeed={5}
+                            >
+                                trust the process.
+                            </GradientText>
+                        </span>
                     </h1>
                 </motion.div>
 
@@ -307,7 +319,13 @@ export default function ApproachPage() {
                         <span className="text-xl">↓</span>
                     </motion.div>
                     <span className="text-xs text-[var(--text-tertiary)] uppercase tracking-[0.2em]">
-                        How the magic happens
+                        <ShinyText
+                            speed={4}
+                            shineColor="rgba(139, 92, 246, 0.6)"
+                            color="currentColor"
+                        >
+                            How the magic happens
+                        </ShinyText>
                     </span>
                 </motion.div>
             </section>
@@ -360,7 +378,12 @@ export default function ApproachPage() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        Ready to bring your vision to life? Let&apos;s create something extraordinary together.
+                        <BlurText
+                            text="Ready to bring your vision to life? Let's create something extraordinary together."
+                            animateBy="words"
+                            delay={70}
+                            stepDuration={0.35}
+                        />
                     </motion.p>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
