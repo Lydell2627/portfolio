@@ -71,7 +71,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
           ═══════════════════════════════════════════════════════════════════ */}
             <section
                 ref={heroRef}
-                className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20 md:pt-24 pb-8"
+                className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-28 md:pt-32 lg:pt-36 pb-6"
             >
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
