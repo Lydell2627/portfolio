@@ -137,6 +137,35 @@ export function AboutPageClient({ stats, testimonials }: AboutPageClientProps) {
                 {/* Background gradient */}
                 <div className="absolute inset-0 bg-gradient-to-b from-neutral-100 to-transparent dark:from-neutral-900 dark:to-transparent" />
 
+                {/* Animated Background Elements */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {/* Gradient orbs - Teal/Cyan theme */}
+                    <motion.div
+                        className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-teal-500/10 via-cyan-500/5 to-transparent blur-3xl"
+                        animate={{
+                            x: [0, 30, 0],
+                            y: [0, -20, 0],
+                        }}
+                        transition={{
+                            duration: 15,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    />
+                    <motion.div
+                        className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-cyan-500/10 via-teal-500/5 to-transparent blur-3xl"
+                        animate={{
+                            x: [0, -40, 0],
+                            y: [0, 30, 0],
+                        }}
+                        transition={{
+                            duration: 18,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    />
+                </div>
+
                 {/* Large background text */}
                 <motion.div
                     className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
