@@ -101,7 +101,11 @@ export function GradientText({
             className={`${showBorder ? "gradient-text-border" : ""} ${className}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            style={{ ...gradientStyle, backgroundPosition, display: "inline" }}
+            style={{
+                ...gradientStyle,
+                backgroundPosition,
+                display: "inline-block",  // Changed from "inline" to properly contain SplitText children
+            }}
         >
             {children}
         </motion.span>
