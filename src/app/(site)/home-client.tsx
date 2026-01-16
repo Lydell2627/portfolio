@@ -159,12 +159,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                                     colors={["#8B5CF6", "#EC4899", "#6366F1", "#8B5CF6"]}
                                     animationSpeed={6}
                                 >
-                                    <SplitText
-                                        text="inspire"
-                                        delay={50}
-                                        animateBy="letters"
-                                        duration={0.5}
-                                    />
+                                    inspire
                                 </GradientText>
                             </span>
                         </h1>
