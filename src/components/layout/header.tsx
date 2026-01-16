@@ -364,7 +364,7 @@ export function Header() {
 
                                 {/* Mobile CTA */}
                                 <motion.div
-                                    className="py-8 flex flex-col gap-4"
+                                    className="pb-12 pt-4"
                                     initial={{ opacity: 0, y: 50 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.6, duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
@@ -373,12 +373,12 @@ export function Header() {
                                         href="/contact"
                                         onClick={() => setIsMobileMenuOpen(false)}
                                         className={cn(
-                                            "inline-flex items-center justify-center",
-                                            "px-6 py-4",
-                                            "text-base font-medium",
+                                            "inline-flex items-center justify-center w-full",
+                                            "px-8 py-5",
+                                            "text-base font-semibold",
                                             "bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white",
                                             "rounded-full",
-                                            "transition-transform duration-300 active:scale-95"
+                                            "transition-all duration-300 active:scale-95"
                                         )}
                                     >
                                         Book a call
