@@ -175,8 +175,8 @@ function ProcessSection({
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className={`py-32 md:py-48 border-t border-[var(--border)] ${index === 0 ? 'scroll-mt-24' : ''}`}
-            id={index === 0 ? 'understand' : undefined}
+            className="min-h-screen py-32 md:py-48 border-t border-[var(--border)] snap-start snap-always flex items-center"
+            id={`section-${index}`}
         >
             <div className="container">
                 <div className="grid md:grid-cols-12 gap-12 md:gap-16">
@@ -241,11 +241,11 @@ export default function ApproachPage() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     return (
-        <div ref={containerRef}>
+        <div ref={containerRef} className="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth">
             {/* ═══════════════════════════════════════════════════════════════════
                 HERO SECTION
             ═══════════════════════════════════════════════════════════════════ */}
-            <section className="min-h-screen flex flex-col items-center justify-center relative px-6">
+            <section id="hero" className="min-h-screen flex flex-col items-center justify-center relative px-6 snap-start snap-always">
                 <motion.div
                     className="text-center max-w-5xl mx-auto"
                     initial={{ opacity: 0, y: 60 }}
@@ -278,7 +278,7 @@ export default function ApproachPage() {
                                 duration={0.5}
                             />{" "}
                             <GradientText
-                                colors={["#8B5CF6", "#EC4899", "#6366F1", "#8B5CF6"]}
+                                colors={["#F59E0B", "#D97706", "#F97316", "#F59E0B"]}
                                 animationSpeed={5}
                             >
                                 trust the process.
@@ -294,9 +294,9 @@ export default function ApproachPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1, duration: 0.8 }}
                     onClick={() => {
-                        const understandSection = document.getElementById('understand');
-                        if (understandSection) {
-                            understandSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        const nextSection = document.getElementById('section-0');
+                        if (nextSection) {
+                            nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
                     }}
                 >
@@ -342,44 +342,38 @@ export default function ApproachPage() {
             ))}
 
             {/* ═══════════════════════════════════════════════════════════════════
-                FOOTER MARQUEE - LET'S CONNECT
+                FOOTER CTA - Theme-Aware
             ═══════════════════════════════════════════════════════════════════ */}
-            <section className="dark-section py-24 md:py-32 overflow-hidden">
-                <div className="mb-20">
-                    {/* Marquee */}
-                    <div className="overflow-hidden whitespace-nowrap">
-                        <motion.div
-                            className="inline-flex"
-                            animate={{ x: ["0%", "-50%"] }}
-                            transition={{
-                                duration: 25,
-                                repeat: Infinity,
-                                ease: "linear",
-                            }}
-                        >
-                            {[...Array(8)].map((_, i) => (
-                                <span
-                                    key={i}
-                                    className="font-serif text-6xl md:text-8xl lg:text-[10rem] italic text-white/90 mx-8 md:mx-12"
-                                >
-                                    LET&apos;S CONNECT
-                                </span>
-                            ))}
-                        </motion.div>
-                    </div>
-                </div>
-
+            <section id="cta" className="min-h-screen snap-start snap-always flex items-center justify-center bg-neutral-100 dark:bg-neutral-950">
                 {/* CTA */}
                 <div className="container text-center">
-                    <motion.p
-                        className="text-lg md:text-xl text-white/50 mb-10 max-w-lg mx-auto leading-relaxed"
+                    <motion.h2
+                        className="font-serif text-4xl md:text-5xl lg:text-6xl text-neutral-900 dark:text-white mb-8"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     >
+                        Ready to create something{" "}
+                        <span className="italic">
+                            <GradientText
+                                colors={["#F59E0B", "#FBBF24", "#F97316", "#F59E0B"]}
+                                animationSpeed={5}
+                            >
+                                extraordinary
+                            </GradientText>
+                        </span>
+                        ?
+                    </motion.h2>
+                    <motion.p
+                        className="text-lg md:text-xl text-neutral-600 dark:text-white/60 mb-12 max-w-lg mx-auto leading-relaxed"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    >
                         <BlurText
-                            text="Ready to bring your vision to life? Let's create something extraordinary together."
+                            text="Let's bring your vision to life with award-winning design and development."
                             animateBy="words"
                             delay={70}
                             stepDuration={0.35}
@@ -389,24 +383,31 @@ export default function ApproachPage() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
                     >
                         <Link
                             href="/contact"
                             className={cn(
                                 "inline-flex items-center gap-3",
-                                "px-10 py-5",
-                                "text-base font-medium",
-                                "bg-white text-neutral-900",
+                                "px-12 py-6",
+                                "text-lg font-semibold",
+                                "bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500",
+                                "text-white",
                                 "rounded-full",
-                                "hover:bg-white/90 transition-all duration-300",
+                                "shadow-[0_8px_32px_rgba(245,158,11,0.4)]",
+                                "hover:shadow-[0_12px_40px_rgba(245,158,11,0.6)]",
+                                "hover:scale-105 transition-all duration-300",
                                 "group"
                             )}
                         >
-                            <span>Start a project</span>
-                            <span className="transition-transform duration-300 group-hover:translate-x-1">
+                            <span>Start a Project</span>
+                            <motion.span
+                                className="text-xl"
+                                animate={{ x: [0, 4, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                            >
                                 →
-                            </span>
+                            </motion.span>
                         </Link>
                     </motion.div>
                 </div>

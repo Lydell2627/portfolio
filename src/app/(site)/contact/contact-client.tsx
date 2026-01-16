@@ -135,7 +135,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
             ═══════════════════════════════════════════════════════════════════ */}
             <section
                 ref={heroRef}
-                className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
+                className="relative min-h-[60vh] md:min-h-[70vh] flex items-center justify-center overflow-hidden px-4"
             >
                 {/* Background gradient */}
                 <div className="absolute inset-0 bg-gradient-to-b from-neutral-100 to-transparent dark:from-neutral-900 dark:to-transparent" />
@@ -168,7 +168,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                         >
                             <ShinyText
                                 speed={4}
-                                shineColor="rgba(139, 92, 246, 0.6)"
+                                shineColor="rgba(244, 63, 94, 0.6)"
                                 color="currentColor"
                             >
                                 Get in Touch
@@ -186,7 +186,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                             </span>
                             <span className="block">
                                 <GradientText
-                                    colors={["#8B5CF6", "#EC4899", "#6366F1"]}
+                                    colors={["#F43F5E", "#EC4899", "#F97316"]}
                                     animationSpeed={5}
                                     className="italic"
                                 >
@@ -215,9 +215,9 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
             {/* ═══════════════════════════════════════════════════════════════════
                 FORM SECTION
             ═══════════════════════════════════════════════════════════════════ */}
-            <section className="section pt-0">
+            <section className="section pt-0 px-4 md:px-0">
                 <div className="container">
-                    <div className="grid lg:grid-cols-12 gap-16 lg:gap-24">
+                    <div className="grid lg:grid-cols-12 gap-8 md:gap-12 lg:gap-24">
                         {/* Left - Contact Info */}
                         <motion.div
                             className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start"
@@ -500,9 +500,9 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════════
-                CTA SECTION
+                CTA SECTION - Theme-Aware
             ═══════════════════════════════════════════════════════════════════ */}
-            <section className="dark-section py-24 md:py-32 overflow-hidden">
+            <section className="min-h-screen flex items-center justify-center overflow-hidden bg-neutral-100 dark:bg-neutral-950">
                 <div className="container text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -511,7 +511,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                         transition={{ duration: 0.8 }}
                         className="max-w-2xl mx-auto"
                     >
-                        <h2 className="font-serif text-4xl md:text-5xl text-white mb-6">
+                        <h2 className="font-serif text-4xl md:text-5xl text-neutral-900 dark:text-white mb-6">
                             <BlurText
                                 text="Prefer a"
                                 animateBy="words"
@@ -519,22 +519,28 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                                 stepDuration={0.4}
                             />{" "}
                             <GradientText
-                                colors={["#8B5CF6", "#EC4899", "#3B82F6"]}
+                                colors={["#F43F5E", "#EC4899", "#FB7185"]}
                                 animationSpeed={5}
                                 className="italic"
                             >
                                 quick chat?
                             </GradientText>
                         </h2>
-                        <p className="text-lg text-white/60 mb-10">
+                        <p className="text-lg text-neutral-600 dark:text-white/60 mb-10">
                             Schedule a 30-minute discovery call to discuss your project.
                         </p>
                         <Link
                             href="#"
-                            className="inline-flex items-center gap-3 px-10 py-5 bg-white text-neutral-900 rounded-full text-sm font-medium hover:bg-white/90 transition-colors group"
+                            className="inline-flex items-center gap-3 px-12 py-6 text-lg font-semibold bg-gradient-to-r from-rose-500 via-pink-500 to-rose-500 text-white rounded-full shadow-[0_8px_32px_rgba(244,63,94,0.4)] hover:shadow-[0_12px_40px_rgba(244,63,94,0.6)] hover:scale-105 transition-all duration-300 group"
                         >
                             <span>Book a call</span>
-                            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                            <motion.span
+                                className="text-xl"
+                                animate={{ x: [0, 4, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                →
+                            </motion.span>
                         </Link>
                     </motion.div>
                 </div>

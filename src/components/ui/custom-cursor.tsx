@@ -11,8 +11,8 @@ export function CustomCursor() {
     const cursorX = useMotionValue(-100);
     const cursorY = useMotionValue(-100);
 
-    // Smooth spring animation for cursor
-    const springConfig = { damping: 25, stiffness: 400 };
+    // Smooth spring animation for cursor - reduced stiffness for elegant, slower movement
+    const springConfig = { damping: 35, stiffness: 150 };
     const cursorXSpring = useSpring(cursorX, springConfig);
     const cursorYSpring = useSpring(cursorY, springConfig);
 

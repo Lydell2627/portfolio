@@ -56,12 +56,12 @@ export function Footer({ siteSettings }: FooterProps) {
     return (
         <footer className="dark-section">
             {/* Marquee Section */}
-            <div className="py-16 md:py-24 overflow-hidden border-b border-white/10">
+            <div className="py-8 md:py-16 lg:py-24 overflow-hidden border-b border-white/10">
                 <div className="animate-marquee whitespace-nowrap flex">
                     {[...Array(4)].map((_, i) => (
                         <span
                             key={i}
-                            className="font-serif text-6xl md:text-8xl lg:text-9xl mx-8 opacity-20"
+                            className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-9xl mx-4 md:mx-8 opacity-20"
                         >
                             LET&apos;S CREATE TOGETHER • DESIGN WITH PURPOSE •
                         </span>
@@ -70,8 +70,8 @@ export function Footer({ siteSettings }: FooterProps) {
             </div>
 
             {/* Main Footer Content */}
-            <div className="container py-16 md:py-24">
-                <div className="grid md:grid-cols-12 gap-12 md:gap-8">
+            <div className="container py-10 md:py-16 lg:py-24 px-4 md:px-0">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-8">
                     {/* Left - Branding & Back to Top */}
                     <div className="md:col-span-4 space-y-8">
                         <Link href="/" className="inline-block">

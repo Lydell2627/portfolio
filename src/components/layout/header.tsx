@@ -376,7 +376,7 @@ export function Header() {
                                             "inline-flex items-center justify-center",
                                             "px-6 py-4",
                                             "text-base font-medium",
-                                            "bg-white text-neutral-900",
+                                            "bg-white text-neutral-900 dark:bg-neutral-900 dark:text-white",
                                             "rounded-full",
                                             "transition-transform duration-300 active:scale-95"
                                         )}

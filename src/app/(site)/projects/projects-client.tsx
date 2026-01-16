@@ -8,6 +8,8 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { urlFor } from "@/lib/sanity";
 import { Badge } from "@/components/ui/badge";
+import { GradientText } from "@/components/ui/gradient-text";
+import { ShinyText } from "@/components/ui/shiny-text";
 
 // Sanity Project type
 interface SanityProject {
@@ -145,7 +147,7 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
             ═══════════════════════════════════════════════════════════════════ */}
             <section
                 ref={heroRef}
-                className="relative min-h-[60vh] md:min-h-[70vh] flex items-center justify-center overflow-hidden"
+                className="relative min-h-[50vh] md:min-h-[70vh] flex items-center justify-center overflow-hidden px-4"
             >
                 {/* Background gradient */}
                 <div className="absolute inset-0 bg-gradient-to-b from-neutral-100 to-transparent dark:from-neutral-900 dark:to-transparent" />
@@ -176,7 +178,13 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
                             transition={{ delay: 0.2, duration: 0.6 }}
                             className="text-xs md:text-sm text-neutral-500 dark:text-neutral-400 tracking-[0.3em] uppercase mb-8"
                         >
-                            Our Work
+                            <ShinyText
+                                speed={4}
+                                shineColor="rgba(16, 185, 129, 0.6)"
+                                color="currentColor"
+                            >
+                                Our Work
+                            </ShinyText>
                         </motion.p>
 
                         <h1 className="font-serif leading-[1.05] mb-8">
@@ -186,7 +194,14 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
                                 transition={{ delay: 0.3, duration: 0.8 }}
                                 className="block"
                             >
-                                <span className="italic">Selected</span> projects
+                                <GradientText
+                                    colors={["#10B981", "#34D399", "#059669"]}
+                                    animationSpeed={5}
+                                    className="italic"
+                                >
+                                    Selected
+                                </GradientText>{" "}
+                                projects
                             </motion.span>
                             <motion.span
                                 initial={{ opacity: 0, y: 40 }}
@@ -320,32 +335,55 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════════
-                CTA SECTION
+                CTA SECTION - Premium Theme-Aware Style
             ═══════════════════════════════════════════════════════════════════ */}
-            <section className="section border-t border-neutral-200 dark:border-neutral-800">
-                <div className="container">
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
+            <section className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-950">
+                <div className="container text-center">
+                    <motion.h2
+                        className="font-serif text-4xl md:text-5xl lg:text-6xl text-neutral-900 dark:text-white mb-8"
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="text-center max-w-2xl mx-auto"
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        <p className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400 mb-6">
-                            Ready to start?
-                        </p>
-                        <h2 className="font-serif mb-8">
-                            Let&apos;s create your <span className="italic">next project</span> together.
-                        </h2>
-                        <p className="text-lg text-neutral-500 dark:text-neutral-400 mb-10">
-                            Whether you need a complete digital transformation or a refined user experience, we&apos;re here to help.
-                        </p>
+                        Ready to create your{" "}
+                        <span className="italic">
+                            <GradientText
+                                colors={["#10B981", "#34D399", "#059669", "#10B981"]}
+                                animationSpeed={5}
+                            >
+                                next project
+                            </GradientText>
+                        </span>
+                        ?
+                    </motion.h2>
+                    <motion.p
+                        className="text-lg md:text-xl text-neutral-600 dark:text-white/60 mb-12 max-w-lg mx-auto leading-relaxed"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        Whether you need a complete digital transformation or a refined user experience, we&apos;re here to help.
+                    </motion.p>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         <Link
                             href="/contact"
-                            className="inline-flex items-center gap-3 px-10 py-5 text-sm font-medium bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 rounded-full hover:opacity-90 transition-opacity group"
+                            className="inline-flex items-center gap-3 px-12 py-6 text-lg font-semibold bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-500 text-white rounded-full shadow-[0_8px_32px_rgba(16,185,129,0.4)] hover:shadow-[0_12px_40px_rgba(16,185,129,0.6)] hover:scale-105 transition-all duration-300 group"
                         >
-                            <span>Start a project</span>
-                            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                            <span>Start a Project</span>
+                            <motion.span
+                                className="text-xl"
+                                animate={{ x: [0, 4, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                →
+                            </motion.span>
                         </Link>
                     </motion.div>
                 </div>

@@ -189,10 +189,20 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                             </span>
                         </h1>
 
+                        {/* Strong tagline completing the hero message */}
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.8, duration: 0.6 }}
+                            className="font-serif text-lg sm:text-xl md:text-2xl lg:text-3xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto leading-relaxed mt-4 md:mt-6 mb-3 md:mb-4 px-2"
+                        >
+                            From concept to reality, we craft digital masterpieces that captivate audiences and elevate brands.
+                        </motion.p>
+
                         {/* Subtext with BlurText animation */}
-                        <p className="text-base md:text-xl text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto leading-relaxed mb-12">
+                        <p className="text-sm sm:text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto leading-relaxed mb-8 md:mb-12 px-4">
                             <BlurText
-                                text="Award-winning digital experiences for brands that dare to be different."
+                                text="Award-winning studio specializing in premium web experiences, brand identities, and digital innovation."
                                 animateBy="words"
                                 delay={60}
                                 stepDuration={0.35}
@@ -204,7 +214,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1, duration: 0.6 }}
-                            className="flex flex-col sm:flex-row gap-4 justify-center"
+                            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
                         >
                             <AnimatedButton href="/projects">
                                 View our work
