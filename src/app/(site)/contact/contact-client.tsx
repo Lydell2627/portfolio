@@ -142,9 +142,9 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
 
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {/* Gradient orbs - Rose/Pink theme */}
+                    {/* Gradient orbs - Rose/Pink theme, responsive sizing */}
                     <motion.div
-                        className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-rose-500/10 via-pink-500/5 to-transparent blur-3xl"
+                        className="absolute top-1/4 -left-1/2 md:-left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-br from-rose-500/10 via-pink-500/5 to-transparent blur-3xl"
                         animate={{
                             x: [0, 30, 0],
                             y: [0, -20, 0],
@@ -156,7 +156,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                         }}
                     />
                     <motion.div
-                        className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-pink-500/10 via-rose-500/5 to-transparent blur-3xl"
+                        className="absolute bottom-1/4 -right-1/2 md:-right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] rounded-full bg-gradient-to-bl from-pink-500/10 via-rose-500/5 to-transparent blur-3xl"
                         animate={{
                             x: [0, -40, 0],
                             y: [0, 30, 0],
@@ -560,7 +560,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                         </p>
                         <Link
                             href="#"
-                            className="inline-flex items-center gap-3 px-12 py-6 text-lg font-semibold bg-gradient-to-r from-rose-500 via-pink-500 to-rose-500 text-white rounded-full shadow-[0_8px_32px_rgba(244,63,94,0.4)] hover:shadow-[0_12px_40px_rgba(244,63,94,0.6)] hover:scale-105 transition-all duration-300 group"
+                            className="inline-flex items-center gap-3 px-8 py-4 md:px-12 md:py-6 text-base md:text-lg font-semibold bg-gradient-to-r from-rose-500 via-pink-500 to-rose-500 text-white rounded-full shadow-[0_8px_32px_rgba(244,63,94,0.4)] hover:shadow-[0_12px_40px_rgba(244,63,94,0.6)] hover:scale-105 transition-all duration-300 group"
                         >
                             <span>Book a call</span>
                             <motion.span

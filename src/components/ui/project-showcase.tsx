@@ -119,8 +119,8 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             ${showText ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}
                         `}
                     >
-                        {/* Big Number */}
-                        <div className="font-serif text-[6rem] md:text-[8rem] lg:text-[10rem] text-neutral-100 dark:text-neutral-800 leading-none -mb-10 lg:-mb-14">
+                        {/* Big Number - Responsive sizing */}
+                        <div className="font-serif text-[5rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] text-neutral-100 dark:text-neutral-800 leading-none -mb-8 sm:-mb-10 lg:-mb-14">
                             {String(currentIndex + 1).padStart(2, '0')}
                         </div>
 

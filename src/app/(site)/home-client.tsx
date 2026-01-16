@@ -75,9 +75,9 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
             >
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {/* Gradient orbs */}
+                    {/* Gradient orbs - Responsive sizing to prevent mobile overflow */}
                     <motion.div
-                        className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-transparent blur-3xl"
+                        className="absolute top-1/4 -left-1/2 md:-left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-transparent blur-3xl"
                         animate={{
                             x: [0, 30, 0],
                             y: [0, -20, 0],
@@ -89,7 +89,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                         }}
                     />
                     <motion.div
-                        className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-cyan-500/10 via-blue-500/5 to-transparent blur-3xl"
+                        className="absolute bottom-1/4 -right-1/2 md:-right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] rounded-full bg-gradient-to-bl from-cyan-500/10 via-blue-500/5 to-transparent blur-3xl"
                         animate={{
                             x: [0, -40, 0],
                             y: [0, 30, 0],

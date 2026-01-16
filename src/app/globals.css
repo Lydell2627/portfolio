@@ -145,6 +145,11 @@
 
 /* ═══════════════════════════════════════════════════════════════════════════
    BASE STYLES
+   
+   Responsive Strategy: Mobile-first with Tailwind v4 breakpoints
+   - sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px
+   - All animated elements use responsive sizing to prevent overflow
+   - Gradient orbs scale: mobile (300px) → desktop (600px)
    ═══════════════════════════════════════════════════════════════════════════ */
 
 * {
@@ -153,6 +158,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Prevent horizontal overflow from animated elements */
+  overflow-x: hidden;
 }
 
 body {
@@ -161,6 +168,8 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Additional safeguard for mobile overflow */
+  overflow-x: hidden;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
