@@ -245,7 +245,43 @@ export default function ApproachPage() {
             {/* ═══════════════════════════════════════════════════════════════════
                 HERO SECTION
             ═══════════════════════════════════════════════════════════════════ */}
-            <section id="hero" className="min-h-screen flex flex-col items-center justify-center relative px-6 snap-start snap-always">
+            <section id="hero" className="min-h-screen flex flex-col items-center justify-center relative px-6 snap-start snap-always overflow-hidden">
+                {/* Animated Background Elements */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {/* Gradient orbs - Orange/Amber theme */}
+                    <motion.div
+                        className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent blur-3xl"
+                        animate={{
+                            x: [0, 30, 0],
+                            y: [0, -20, 0],
+                        }}
+                        transition={{
+                            duration: 15,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    />
+                    <motion.div
+                        className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-orange-500/10 via-amber-500/5 to-transparent blur-3xl"
+                        animate={{
+                            x: [0, -40, 0],
+                            y: [0, 30, 0],
+                        }}
+                        transition={{
+                            duration: 18,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    />
+                </div>
+
+                {/* Background Watermark */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+                    <span className="font-serif text-[20vw] md:text-[15vw] text-neutral-900/[0.03] dark:text-white/[0.03] whitespace-nowrap">
+                        APPROACH
+                    </span>
+                </div>
+
                 <motion.div
                     className="text-center max-w-5xl mx-auto"
                     initial={{ opacity: 0, y: 60 }}
