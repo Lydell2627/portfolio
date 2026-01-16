@@ -214,7 +214,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1, duration: 0.6 }}
-                            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
+                            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 mt-8"
                         >
                             <AnimatedButton href="/projects">
                                 View our work
@@ -228,9 +228,6 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                         </motion.div>
                     </motion.div>
                 </motion.div>
-
-                {/* Scroll Indicator */}
-                <ScrollIndicator />
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════════
