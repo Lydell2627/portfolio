@@ -174,32 +174,17 @@ export function AboutPageClient({ stats, testimonials }: AboutPageClientProps) {
 
                         <h1 className="font-serif leading-[1.05] mb-8">
                             <span className="block">
-                                <SplitText
-                                    text="A studio of"
-                                    delay={40}
-                                    animateBy="letters"
-                                    duration={0.5}
-                                />{" "}
+                                A studio of{" "}
                                 <GradientText
                                     colors={["#14B8A6", "#06B6D4", "#0EA5E9"]}
                                     animationSpeed={5}
                                     className="italic"
                                 >
-                                    <SplitText
-                                        text="radical"
-                                        delay={45}
-                                        animateBy="letters"
-                                        duration={0.4}
-                                    />
+                                    radical
                                 </GradientText>
                             </span>
                             <span className="block">
-                                <SplitText
-                                    text="optimists crafting"
-                                    delay={40}
-                                    animateBy="letters"
-                                    duration={0.5}
-                                />
+                                optimists crafting
                             </span>
                             <span className="block">
                                 <GradientText
@@ -207,12 +192,7 @@ export function AboutPageClient({ stats, testimonials }: AboutPageClientProps) {
                                     animationSpeed={6}
                                     className="italic"
                                 >
-                                    <SplitText
-                                        text="new experiences."
-                                        delay={45}
-                                        animateBy="letters"
-                                        duration={0.4}
-                                    />
+                                    new experiences.
                                 </GradientText>
                             </span>
                         </h1>
