@@ -134,8 +134,7 @@ export function AboutPageClient({ stats, testimonials }: AboutPageClientProps) {
                 ref={heroRef}
                 className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden px-4 pt-12 md:pt-16"
             >
-                {/* Background gradient */}
-                <div className="absolute inset-0 bg-gradient-to-b from-neutral-100 to-transparent dark:from-neutral-900 dark:to-transparent" />
+
 
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">

@@ -149,8 +149,7 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
                 ref={heroRef}
                 className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden px-4 pt-8 md:pt-12"
             >
-                {/* Background gradient */}
-                <div className="absolute inset-0 bg-gradient-to-b from-neutral-100 to-transparent dark:from-neutral-900 dark:to-transparent" />
+
 
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
