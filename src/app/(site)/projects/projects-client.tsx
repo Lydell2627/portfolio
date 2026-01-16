@@ -229,7 +229,7 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
             {/* ═══════════════════════════════════════════════════════════════════
                 FILTER & PROJECTS GRID
             ═══════════════════════════════════════════════════════════════════ */}
-            <section className="section pt-0">
+            <section className="section pt-16 md:pt-24">
                 <div className="container">
                     {/* Filter Navigation */}
                     <motion.nav
