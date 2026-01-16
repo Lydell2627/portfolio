@@ -132,7 +132,7 @@ export function AboutPageClient({ stats, testimonials }: AboutPageClientProps) {
             ═══════════════════════════════════════════════════════════════════ */}
             <section
                 ref={heroRef}
-                className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden px-4"
+                className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden px-4 pt-24 md:pt-32"
             >
                 {/* Background gradient */}
                 <div className="absolute inset-0 bg-gradient-to-b from-neutral-100 to-transparent dark:from-neutral-900 dark:to-transparent" />
