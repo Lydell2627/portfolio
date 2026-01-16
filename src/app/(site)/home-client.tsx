@@ -128,26 +128,6 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                         transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
                         className="max-w-5xl mx-auto"
                     >
-                        {/* Tagline with line */}
-                        <motion.div
-                            initial={{ opacity: 0, width: 0 }}
-                            animate={{ opacity: 1, width: "100%" }}
-                            transition={{ delay: 0.3, duration: 0.8 }}
-                            className="flex items-center justify-center gap-4 mb-4 md:mb-6"
-                        >
-                            <div className="h-px bg-neutral-300 dark:bg-neutral-700 w-12" />
-                            <p className="text-xs md:text-sm text-neutral-500 dark:text-neutral-400 tracking-[0.3em] uppercase">
-                                <ShinyText
-                                    speed={4}
-                                    shineColor="rgba(139, 92, 246, 0.6)"
-                                    color="currentColor"
-                                >
-                                    Creative Design Studio
-                                </ShinyText>
-                            </p>
-                            <div className="h-px bg-neutral-300 dark:bg-neutral-700 w-12" />
-                        </motion.div>
-
                         {/* Main Headline - Animated with SplitText */}
                         <h1 className="font-serif leading-[1.05] mb-4 md:mb-6">
                             <span className="block">
