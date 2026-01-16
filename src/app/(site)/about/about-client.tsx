@@ -210,22 +210,25 @@ export function AboutPageClient({ stats, testimonials }: AboutPageClientProps) {
 
                 {/* Scroll indicator */}
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 0.8 }}
-                    className="absolute bottom-12 left-1/2 -translate-x-1/2"
+                    className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 cursor-pointer group"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.2, duration: 0.8 }}
                 >
                     <motion.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                        className="w-6 h-10 rounded-full border-2 border-neutral-300 dark:border-neutral-700 flex justify-center"
+                        className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-neutral-400 dark:border-neutral-600 flex items-center justify-center group-hover:bg-neutral-900 dark:group-hover:bg-white group-hover:border-neutral-900 dark:group-hover:border-white group-hover:text-white dark:group-hover:text-neutral-900 transition-all duration-300"
+                        animate={{ y: [0, 6, 0] }}
+                        transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                        }}
                     >
-                        <motion.div
-                            className="w-1.5 h-1.5 bg-neutral-400 rounded-full mt-2"
-                            animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                        />
+                        <span className="text-lg">↓</span>
                     </motion.div>
+                    <span className="text-xs text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.15em]">
+                        Scroll
+                    </span>
                 </motion.div>
             </section>
 

@@ -224,6 +224,29 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
                         </motion.p>
                     </motion.div>
                 </motion.div>
+
+                {/* Scroll Indicator */}
+                <motion.div
+                    className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 cursor-pointer group"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.2, duration: 0.8 }}
+                >
+                    <motion.div
+                        className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-neutral-400 dark:border-neutral-600 flex items-center justify-center group-hover:bg-neutral-900 dark:group-hover:bg-white group-hover:border-neutral-900 dark:group-hover:border-white group-hover:text-white dark:group-hover:text-neutral-900 transition-all duration-300"
+                        animate={{ y: [0, 6, 0] }}
+                        transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                        }}
+                    >
+                        <span className="text-lg">↓</span>
+                    </motion.div>
+                    <span className="text-xs text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.15em]">
+                        Scroll
+                    </span>
+                </motion.div>
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════════
