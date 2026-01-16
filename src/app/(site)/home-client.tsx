@@ -215,6 +215,12 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.2, duration: 0.8 }}
+                    onClick={() => {
+                        window.scrollTo({
+                            top: window.innerHeight,
+                            behavior: 'smooth'
+                        });
+                    }}
                 >
                     <motion.div
                         className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-neutral-400 dark:border-neutral-600 flex items-center justify-center group-hover:bg-neutral-900 dark:group-hover:bg-white group-hover:border-neutral-900 dark:group-hover:border-white group-hover:text-white dark:group-hover:text-neutral-900 transition-all duration-300"
