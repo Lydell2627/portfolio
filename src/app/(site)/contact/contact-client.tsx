@@ -200,7 +200,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                             </span>
                         </h1>
 
-                        <p className="text-base md:text-xl text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto leading-relaxed">
+                        <p className="text-lg md:text-2xl text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
                             <BlurText
                                 text="Have a project in mind? We'd love to hear about it. Fill out the form below and we'll get back to you within 24 hours."
                                 animateBy="words"

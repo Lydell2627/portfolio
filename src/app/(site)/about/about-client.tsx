@@ -217,7 +217,7 @@ export function AboutPageClient({ stats, testimonials }: AboutPageClientProps) {
                             </span>
                         </h1>
 
-                        <p className="text-base md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-lg md:text-2xl text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
                             <BlurText
                                 text="We believe in the power of design to transform businesses, captivate audiences, and create meaningful connections in the digital world."
                                 animateBy="words"

@@ -170,7 +170,7 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-                        className="max-w-4xl mx-auto"
+                        className="max-w-5xl mx-auto"
                     >
                         <motion.p
                             initial={{ opacity: 0 }}
@@ -217,7 +217,7 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.6, duration: 0.6 }}
-                            className="text-base md:text-xl text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto leading-relaxed"
+                            className="text-lg md:text-2xl text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed"
                         >
                             A collection of our recent work across product design,
                             web experiences, and brand identities.
