@@ -71,7 +71,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
           ═══════════════════════════════════════════════════════════════════ */}
             <section
                 ref={heroRef}
-                className="relative min-h-screen flex items-center justify-center overflow-hidden pt-40 md:pt-60"
+                className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20 md:pt-24 pb-8"
             >
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -133,7 +133,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                             initial={{ opacity: 0, width: 0 }}
                             animate={{ opacity: 1, width: "100%" }}
                             transition={{ delay: 0.3, duration: 0.8 }}
-                            className="flex items-center justify-center gap-4 mb-8"
+                            className="flex items-center justify-center gap-4 mb-4 md:mb-6"
                         >
                             <div className="h-px bg-neutral-300 dark:bg-neutral-700 w-12" />
                             <p className="text-xs md:text-sm text-neutral-500 dark:text-neutral-400 tracking-[0.3em] uppercase">
@@ -149,7 +149,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                         </motion.div>
 
                         {/* Main Headline - Animated with SplitText */}
-                        <h1 className="font-serif leading-[1.05] mb-8">
+                        <h1 className="font-serif leading-[1.05] mb-4 md:mb-6">
                             <span className="block">
                                 <SplitText
                                     text="We design"
@@ -194,13 +194,13 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.8, duration: 0.6 }}
-                            className="font-serif text-lg sm:text-xl md:text-2xl lg:text-3xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto leading-relaxed mt-4 md:mt-6 mb-3 md:mb-4 px-2"
+                            className="font-serif text-base sm:text-lg md:text-xl lg:text-2xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto leading-relaxed mt-2 md:mt-4 mb-2 md:mb-3 px-2"
                         >
                             From concept to reality, we craft digital masterpieces that captivate audiences and elevate brands.
                         </motion.p>
 
                         {/* Subtext with BlurText animation */}
-                        <p className="text-sm sm:text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto leading-relaxed mb-8 md:mb-12 px-4">
+                        <p className="text-xs sm:text-sm md:text-base text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto leading-relaxed mb-4 md:mb-6 px-4">
                             <BlurText
                                 text="Award-winning studio specializing in premium web experiences, brand identities, and digital innovation."
                                 animateBy="words"
@@ -214,7 +214,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1, duration: 0.6 }}
-                            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 mt-8"
+                            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 mt-4"
                         >
                             <AnimatedButton href="/projects">
                                 View our work
