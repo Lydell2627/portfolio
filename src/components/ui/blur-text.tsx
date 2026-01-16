@@ -44,16 +44,16 @@ export function BlurText({
         },
     };
 
+    // Performance: Using transform-only animations (GPU accelerated)
+    // Removed blur filter which causes severe jank on mobile devices
     const itemVariants: Variants = {
         hidden: {
             opacity: 0,
             y: yOffset,
-            filter: "blur(10px)",
         },
         visible: {
             opacity: 1,
             y: 0,
-            filter: "blur(0px)",
             transition: {
                 duration: stepDuration,
                 ease: [0.23, 1, 0.32, 1],
