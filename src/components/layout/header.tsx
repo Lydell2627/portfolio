@@ -168,7 +168,7 @@ export function Header() {
                 }}
                 className={cn(
                     "fixed top-0 left-0 right-0 z-50",
-                    "pt-4 md:pt-6 px-4 md:px-8",
+                    "pt-3 md:pt-4 lg:pt-6 px-4 sm:px-6 md:px-8 lg:px-12",
                     "pointer-events-none"
                 )}
             >
