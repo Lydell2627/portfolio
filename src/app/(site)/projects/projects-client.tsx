@@ -56,9 +56,9 @@ function ProjectCard({ project, index }: ProjectCardProps) {
     const category = project.category || "Design";
     const tools = project.tools || [];
 
-    // Get thumbnail URL for Sanity projects
+    // Get thumbnail URL for Sanity projects - Higher quality images
     const thumbnailUrl = isSanityProject(project) && project.thumbnail
-        ? urlFor(project.thumbnail).width(800).height(600).url()
+        ? urlFor(project.thumbnail).width(1400).height(900).quality(90).url()
         : null;
 
     return (
@@ -69,24 +69,26 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             transition={{ duration: 0.6, delay: index * 0.1 }}
         >
             <Link href={`/projects/${project.slug}`} className="group block">
-                {/* Image Container */}
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-900 mb-6">
+                {/* Image Container - Dynamic aspect ratio with shadow */}
+                <div className="relative aspect-[3/2] overflow-hidden rounded-2xl lg:rounded-3xl bg-neutral-100 dark:bg-neutral-900 mb-5 shadow-lg shadow-black/5 dark:shadow-black/20">
                     {thumbnailUrl ? (
                         <Image
                             src={thumbnailUrl}
                             alt={project.title}
                             fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            className="object-cover transition-transform duration-700 group-hover:scale-102"
+                            quality={90}
                         />
                     ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-800 dark:to-neutral-900" />
                     )}
                     {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
 
                     {/* Arrow on hover */}
-                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center">
+                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                        <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg">
                             <ArrowUpRight className="w-5 h-5 text-neutral-900" />
                         </div>
                     </div>

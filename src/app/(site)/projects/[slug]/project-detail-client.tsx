@@ -67,11 +67,11 @@ export function ProjectDetailClient({
     const duration = project.duration || "Ongoing";
     const year = project.year || new Date().getFullYear();
 
-    // Get hero image URL for Sanity projects
+    // Get hero image URL for Sanity projects - High quality, large size
     const heroImageUrl = isSanityProject(project) && project.heroImage
-        ? urlFor(project.heroImage).width(1920).height(1080).url()
+        ? urlFor(project.heroImage).width(2400).height(1350).quality(95).url()
         : isSanityProject(project) && project.thumbnail
-            ? urlFor(project.thumbnail).width(1920).height(1080).url()
+            ? urlFor(project.thumbnail).width(2400).height(1350).quality(95).url()
             : null;
 
     // Check if content exists and is array
@@ -111,7 +111,7 @@ export function ProjectDetailClient({
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════════
-          HERO IMAGE
+          HERO IMAGE - Full width, high quality
           ═══════════════════════════════════════════════════════════════════ */}
             <motion.section
                 initial={{ opacity: 0, scale: 0.98 }}
@@ -119,13 +119,15 @@ export function ProjectDetailClient({
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="container mb-16 md:mb-24"
             >
-                <div className="project-card aspect-[16/9] relative overflow-hidden bg-[var(--surface)]">
+                <div className="relative aspect-[16/9] overflow-hidden rounded-2xl lg:rounded-3xl bg-neutral-100 dark:bg-neutral-900 shadow-2xl shadow-black/10 dark:shadow-black/30">
                     {heroImageUrl ? (
                         <Image
                             src={heroImageUrl}
                             alt={project.title}
                             fill
+                            sizes="100vw"
                             className="object-cover"
+                            quality={95}
                             priority
                         />
                     ) : (
