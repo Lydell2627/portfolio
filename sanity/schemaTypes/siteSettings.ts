@@ -27,6 +27,12 @@ export const siteSettings = defineType({
             type: 'string',
         }),
         defineField({
+            name: 'contactPhone',
+            title: 'Contact Phone Number',
+            type: 'string',
+            description: 'Phone number for "Call Us" button (include country code, e.g. +1 555 123 4567)',
+        }),
+        defineField({
             name: 'socialLinks',
             title: 'Social Links',
             type: 'object',

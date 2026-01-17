@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
-import { Send, Check, ArrowUpRight, Mail, MapPin, Clock } from "lucide-react";
+import { Send, Check, ArrowUpRight, Mail, MapPin, Clock, Phone } from "lucide-react";
 import Link from "next/link";
 import { SplitText } from "@/components/ui/split-text";
 import { BlurText } from "@/components/ui/blur-text";
@@ -15,6 +15,7 @@ import { ShinyText } from "@/components/ui/shiny-text";
 
 interface SiteSettings {
     contactEmail?: string;
+    contactPhone?: string;
     socialLinks?: {
         instagram?: string;
         twitter?: string;
@@ -52,7 +53,11 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
 
     // Use Sanity data or fallbacks
     const email = siteSettings?.contactEmail || "hello@studio.design";
+    const phone = siteSettings?.contactPhone || "+1 555 123 4567";
     const socials = siteSettings?.socialLinks;
+
+    // Format phone for tel: link (remove spaces and special chars)
+    const phoneHref = `tel:${phone.replace(/[\s\-\(\)]/g, "")}`;
 
     const contactInfo = [
         {
@@ -60,6 +65,12 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
             label: "Email",
             value: email,
             href: `mailto:${email}`,
+        },
+        {
+            icon: Phone,
+            label: "Phone",
+            value: phone,
+            href: phoneHref,
         },
         {
             icon: MapPin,

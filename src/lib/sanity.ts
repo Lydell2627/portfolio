@@ -88,6 +88,7 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
     siteTagline,
     siteDescription,
     contactEmail,
+    contactPhone,
     socialLinks,
     stats
 }`
