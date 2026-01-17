@@ -71,7 +71,7 @@ function StackedProjectCard({ project, index, totalProjects }: StackedProjectCar
 
     // Get thumbnail URL
     const thumbnailUrl = isSanityProject(project) && project.thumbnail
-        ? urlFor(project.thumbnail).width(1200).height(600).url()
+        ? urlFor(project.thumbnail).width(1200).url()
         : null;
 
     return (

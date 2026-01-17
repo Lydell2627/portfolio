@@ -58,7 +58,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 
     // Get thumbnail URL for Sanity projects - Optimized size for CDN
     const thumbnailUrl = isSanityProject(project) && project.thumbnail
-        ? urlFor(project.thumbnail).width(1200).height(800).quality(85).url()
+        ? urlFor(project.thumbnail).width(1200).quality(85).url()
         : null;
 
     return (

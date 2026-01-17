@@ -45,8 +45,9 @@ function FeaturedProjectItem({
     const tools = project.tools || [];
     const category = project.category || "Design";
 
+    // Don't force height - let image maintain its natural aspect ratio
     const thumbnailUrl = project.thumbnail
-        ? urlFor(project.thumbnail).width(1200).height(800).quality(85).url()
+        ? urlFor(project.thumbnail).width(1200).quality(85).url()
         : null;
 
     // Animation variants - using string easing for TypeScript compatibility

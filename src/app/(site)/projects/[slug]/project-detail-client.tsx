@@ -70,9 +70,9 @@ export function ProjectDetailClient({
 
     // Get hero image URL for Sanity projects - Optimized size to prevent CDN timeout
     const heroImageUrl = isSanityProject(project) && project.heroImage
-        ? urlFor(project.heroImage).width(1600).height(900).quality(85).url()
+        ? urlFor(project.heroImage).width(1600).quality(85).url()
         : isSanityProject(project) && project.thumbnail
-            ? urlFor(project.thumbnail).width(1600).height(900).quality(85).url()
+            ? urlFor(project.thumbnail).width(1600).quality(85).url()
             : null;
 
     // Check if content exists and is array

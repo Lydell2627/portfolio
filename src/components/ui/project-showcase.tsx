@@ -53,7 +53,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
     const clientReview = (project && isSanityProject(project)) ? project.clientReview : undefined;
 
     const thumbnailUrl = project && isSanityProject(project) && project.thumbnail
-        ? urlFor(project.thumbnail).width(1400).height(900).url()
+        ? urlFor(project.thumbnail).width(1400).url()
         : null;
 
     // Animation sequence when section enters view
