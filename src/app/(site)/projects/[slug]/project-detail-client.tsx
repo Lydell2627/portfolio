@@ -121,19 +121,21 @@ export function ProjectDetailClient({
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="container mb-16 md:mb-24"
             >
-                <div className="relative aspect-[16/9] overflow-hidden rounded-2xl lg:rounded-3xl bg-neutral-100 dark:bg-neutral-900 shadow-2xl shadow-black/10 dark:shadow-black/30">
+                {/* Removed fixed aspect ratio - images show at natural proportions */}
+                <div className="relative overflow-hidden rounded-2xl lg:rounded-3xl bg-neutral-100 dark:bg-neutral-900 shadow-2xl shadow-black/10 dark:shadow-black/30">
                     {heroImageUrl ? (
                         <Image
                             src={heroImageUrl}
                             alt={project.title}
-                            fill
+                            width={1600}
+                            height={900}
                             sizes="100vw"
-                            className="object-contain"
+                            className="w-full h-auto"
                             quality={85}
                             priority
                         />
                     ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
+                        <div className="aspect-[16/9] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
                     )}
                 </div>
             </motion.section>

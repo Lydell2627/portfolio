@@ -126,18 +126,20 @@ function FeaturedProjectItem({
                 `}
             >
                 <Link href={`/projects/${project.slug}`} className="block group">
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:rounded-3xl bg-neutral-100 dark:bg-neutral-900 shadow-2xl shadow-black/10 dark:shadow-black/30">
+                    {/* Removed fixed aspect ratio - images show at natural proportions */}
+                    <div className="relative overflow-hidden rounded-2xl lg:rounded-3xl bg-neutral-100 dark:bg-neutral-900 shadow-2xl shadow-black/10 dark:shadow-black/30">
                         {thumbnailUrl ? (
                             <Image
                                 src={thumbnailUrl}
                                 alt={project.title}
-                                fill
+                                width={1200}
+                                height={800}
                                 sizes="(max-width: 768px) 100vw, 60vw"
-                                className="object-contain transition-transform duration-700 group-hover:scale-105"
+                                className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
                                 quality={85}
                             />
                         ) : (
-                            <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20" />
+                            <div className="aspect-[4/3] bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20" />
                         )}
 
                         {/* Hover Overlay */}

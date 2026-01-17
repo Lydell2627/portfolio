@@ -69,19 +69,20 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             transition={{ duration: 0.6, delay: index * 0.1 }}
         >
             <Link href={`/projects/${project.slug}`} className="group block">
-                {/* Image Container - Dynamic aspect ratio with shadow */}
-                <div className="relative aspect-[3/2] overflow-hidden rounded-2xl lg:rounded-3xl bg-neutral-100 dark:bg-neutral-900 mb-5 shadow-lg shadow-black/5 dark:shadow-black/20">
+                {/* Image Container - Natural proportions, no cropping */}
+                <div className="relative overflow-hidden rounded-2xl lg:rounded-3xl bg-neutral-100 dark:bg-neutral-900 mb-5 shadow-lg shadow-black/5 dark:shadow-black/20">
                     {thumbnailUrl ? (
                         <Image
                             src={thumbnailUrl}
                             alt={project.title}
-                            fill
+                            width={800}
+                            height={600}
                             sizes="(max-width: 768px) 100vw, 50vw"
-                            className="object-contain transition-transform duration-700 group-hover:scale-102"
+                            className="w-full h-auto transition-transform duration-700 group-hover:scale-102"
                             quality={85}
                         />
                     ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-800 dark:to-neutral-900" />
+                        <div className="aspect-[3/2] bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-800 dark:to-neutral-900" />
                     )}
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
