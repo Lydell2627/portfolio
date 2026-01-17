@@ -1,17 +1,18 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
-import { Send, Check, ArrowUpRight, Mail, MapPin, Clock, Phone } from "lucide-react";
+import { Send, Check, ArrowUpRight, Mail, MapPin, Clock, Phone, AlertCircle, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { SplitText } from "@/components/ui/split-text";
 import { BlurText } from "@/components/ui/blur-text";
 import { GradientText } from "@/components/ui/gradient-text";
 import { ShinyText } from "@/components/ui/shiny-text";
+import { pricingTiers, formatTierSelection, type PricingTier } from "@/config/pricing-tiers";
 
 interface SiteSettings {
     contactEmail?: string;
@@ -29,26 +30,23 @@ interface ContactPageClientProps {
     siteSettings?: SiteSettings;
 }
 
+// Updated schema: budget is now required
 const contactSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     email: z.string().email("Please enter a valid email address"),
     company: z.string().optional(),
-    budget: z.string().optional(),
+    budget: z.string().min(1, "Please select a project budget"),
     message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
-const budgetOptions = [
-    "$5k - $10k",
-    "$10k - $25k",
-    "$25k - $50k",
-    "$50k+",
-];
+type SubmissionState = "idle" | "submitting" | "success" | "error";
 
 export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    const [selectedTier, setSelectedTier] = useState<PricingTier | null>(null);
     const heroRef = useRef<HTMLDivElement>(null);
 
     // Use Sanity data or fallbacks
@@ -118,25 +116,97 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
         reset,
         setValue,
         watch,
+        getValues,
     } = useForm<ContactFormData>({
         resolver: zodResolver(contactSchema),
+        defaultValues: {
+            budget: "",
+        },
     });
 
     const selectedBudget = watch("budget");
 
+    // Update selected tier when budget changes
+    useEffect(() => {
+        const tier = pricingTiers.find((t) => t.id === selectedBudget);
+        setSelectedTier(tier || null);
+    }, [selectedBudget]);
+
+    // Handle tier selection
+    const handleTierSelect = (tier: PricingTier) => {
+        setValue("budget", tier.id, { shouldValidate: true });
+
+        // Auto-append tier selection to message if not already present
+        const currentMessage = getValues("message") || "";
+        const tierLine = formatTierSelection(tier);
+
+        if (!currentMessage.includes("Selected package:")) {
+            const newMessage = currentMessage
+                ? `${currentMessage}\n\n${tierLine}`
+                : tierLine;
+            setValue("message", newMessage);
+        } else {
+            // Replace existing tier selection
+            const updatedMessage = currentMessage.replace(
+                /Selected package:.*$/m,
+                tierLine
+            );
+            setValue("message", updatedMessage);
+        }
+    };
+
     const onSubmit = async (data: ContactFormData) => {
-        setIsSubmitting(true);
+        setSubmissionState("submitting");
+        setErrorMessage("");
+
+        const tier = pricingTiers.find((t) => t.id === data.budget);
+        if (!tier) {
+            setSubmissionState("error");
+            setErrorMessage("Invalid tier selected");
+            return;
+        }
+
+        const payload = {
+            name: data.name,
+            email: data.email,
+            company: data.company || "",
+            selectedBudgetTier: tier.name,
+            selectedBudgetRange: tier.range,
+            projectDetails: data.message,
+            timestamp: new Date().toISOString(),
+            pageUrl: typeof window !== "undefined" ? window.location.href : "",
+            userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+        };
 
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1500));
-            console.log("Form submitted:", data);
-            setIsSubmitted(true);
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || "Submission failed");
+            }
+
+            setSubmissionState("success");
             reset();
-        } catch {
-            // Handle error silently
-        } finally {
-            setIsSubmitting(false);
+            setSelectedTier(null);
+        } catch (error) {
+            setSubmissionState("error");
+            setErrorMessage(
+                error instanceof Error
+                    ? error.message
+                    : "Something went wrong. Please try again."
+            );
         }
+    };
+
+    const handleRetry = () => {
+        setSubmissionState("idle");
+        setErrorMessage("");
     };
 
     return (
@@ -319,7 +389,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
 
                         {/* Right - Form */}
                         <div className="lg:col-span-8">
-                            {isSubmitted ? (
+                            {submissionState === "success" ? (
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
@@ -332,10 +402,10 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                                         Message <span className="italic">sent!</span>
                                     </h2>
                                     <p className="text-neutral-500 dark:text-neutral-400 mb-8 max-w-md mx-auto">
-                                        Thank you for reaching out. We&apos;ll review your project details and get back to you soon.
+                                        Thank you for reaching out. We&apos;ll reply within 24–48 hours.
                                     </p>
                                     <button
-                                        onClick={() => setIsSubmitted(false)}
+                                        onClick={() => setSubmissionState("idle")}
                                         className="text-sm font-medium underline underline-offset-4 hover:opacity-60 transition-opacity"
                                     >
                                         Send another message
@@ -350,6 +420,31 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                                     onSubmit={handleSubmit(onSubmit)}
                                     className="space-y-10"
                                 >
+                                    {/* Error Banner */}
+                                    <AnimatePresence>
+                                        {submissionState === "error" && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: -10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -10 }}
+                                                className="flex items-center gap-3 p-4 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900"
+                                            >
+                                                <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                                                <p className="text-sm text-red-700 dark:text-red-400 flex-1">
+                                                    {errorMessage}
+                                                </p>
+                                                <button
+                                                    type="button"
+                                                    onClick={handleRetry}
+                                                    className="flex items-center gap-1.5 text-sm font-medium text-red-700 dark:text-red-400 hover:opacity-70 transition-opacity"
+                                                >
+                                                    <RotateCcw className="w-4 h-4" />
+                                                    Retry
+                                                </button>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+
                                     {/* Name & Email Row */}
                                     <div className="grid md:grid-cols-2 gap-8">
                                         <div className="group">
@@ -438,31 +533,110 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                                         />
                                     </div>
 
-                                    {/* Budget Selection */}
-                                    <div>
-                                        <label className="block text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-4">
-                                            Project Budget
-                                        </label>
-                                        <div className="flex flex-wrap gap-3">
-                                            {budgetOptions.map((option) => (
-                                                <motion.button
-                                                    key={option}
-                                                    type="button"
-                                                    onClick={() => setValue("budget", option)}
-                                                    whileHover={{ scale: 1.02 }}
-                                                    whileTap={{ scale: 0.98 }}
-                                                    className={cn(
-                                                        "px-6 py-3 text-sm font-medium rounded-full border-2 transition-all duration-300",
-                                                        selectedBudget === option
-                                                            ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 border-neutral-900 dark:border-white"
-                                                            : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600"
-                                                    )}
-                                                >
-                                                    {option}
-                                                </motion.button>
+                                    {/* Budget Selection - Accessible Radio Group */}
+                                    <fieldset>
+                                        <legend className="block text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-4">
+                                            Project Budget *
+                                        </legend>
+                                        <div
+                                            className="flex flex-wrap gap-3"
+                                            role="radiogroup"
+                                            aria-required="true"
+                                        >
+                                            {pricingTiers.map((tier) => (
+                                                <div key={tier.id} className="relative">
+                                                    <input
+                                                        type="radio"
+                                                        id={`budget-${tier.id}`}
+                                                        name="budget"
+                                                        value={tier.id}
+                                                        checked={selectedBudget === tier.id}
+                                                        onChange={() => handleTierSelect(tier)}
+                                                        className="sr-only peer"
+                                                        aria-describedby={selectedBudget === tier.id ? `tier-details-${tier.id}` : undefined}
+                                                    />
+                                                    <label
+                                                        htmlFor={`budget-${tier.id}`}
+                                                        className={cn(
+                                                            "relative inline-flex flex-col items-center cursor-pointer",
+                                                            "px-5 py-3 text-sm font-medium rounded-full border-2 transition-all duration-300",
+                                                            "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-neutral-900 dark:focus-within:ring-white",
+                                                            selectedBudget === tier.id
+                                                                ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 border-neutral-900 dark:border-white"
+                                                                : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600"
+                                                        )}
+                                                    >
+                                                        <span className="flex items-center gap-2">
+                                                            {tier.name}
+                                                            {tier.popular && (
+                                                                <span className={cn(
+                                                                    "text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-full",
+                                                                    selectedBudget === tier.id
+                                                                        ? "bg-white/20 dark:bg-neutral-900/20"
+                                                                        : "bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400"
+                                                                )}>
+                                                                    Popular
+                                                                </span>
+                                                            )}
+                                                        </span>
+                                                        <span className={cn(
+                                                            "text-xs mt-0.5",
+                                                            selectedBudget === tier.id
+                                                                ? "text-white/70 dark:text-neutral-900/70"
+                                                                : "text-neutral-500"
+                                                        )}>
+                                                            {tier.range}
+                                                        </span>
+                                                    </label>
+                                                </div>
                                             ))}
                                         </div>
-                                    </div>
+                                        {errors.budget && (
+                                            <p className="mt-3 text-sm text-red-500">
+                                                {errors.budget.message}
+                                            </p>
+                                        )}
+
+                                        {/* What's Included - Shows when tier is selected */}
+                                        <AnimatePresence mode="wait">
+                                            {selectedTier && (
+                                                <motion.div
+                                                    key={selectedTier.id}
+                                                    id={`tier-details-${selectedTier.id}`}
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: "auto" }}
+                                                    exit={{ opacity: 0, height: 0 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <div className="mt-6 pt-6 border-t border-neutral-100 dark:border-neutral-800/50">
+                                                        <div className="flex items-baseline justify-between mb-3">
+                                                            <p className="text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+                                                                What&apos;s included
+                                                            </p>
+                                                            <p className="text-xs text-neutral-400 dark:text-neutral-500">
+                                                                {selectedTier.delivery}
+                                                            </p>
+                                                        </div>
+                                                        <ul className="space-y-2">
+                                                            {selectedTier.features.map((feature, index) => (
+                                                                <motion.li
+                                                                    key={index}
+                                                                    initial={{ opacity: 0, x: -10 }}
+                                                                    animate={{ opacity: 1, x: 0 }}
+                                                                    transition={{ delay: index * 0.05 }}
+                                                                    className="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400"
+                                                                >
+                                                                    <span className="text-neutral-300 dark:text-neutral-600 mt-1">•</span>
+                                                                    {feature}
+                                                                </motion.li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </fieldset>
 
                                     {/* Message */}
                                     <div className="group">
@@ -500,7 +674,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                                     <div className="pt-4">
                                         <motion.button
                                             type="submit"
-                                            disabled={isSubmitting}
+                                            disabled={submissionState === "submitting"}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                             /* Responsive: smaller button on mobile */
@@ -514,7 +688,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                                                 "disabled:opacity-50 disabled:cursor-not-allowed"
                                             )}
                                         >
-                                            {isSubmitting ? (
+                                            {submissionState === "submitting" ? (
                                                 <>
                                                     <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
                                                     Sending...
