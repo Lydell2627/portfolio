@@ -129,9 +129,9 @@ function FloatingPill({
                     rotate: [rotation, rotation + 1, rotation],
                 }}
                 transition={{
-                    duration: 3,
+                    duration: 4,
                     repeat: Infinity,
-                    ease: "easeInOut",
+                    ease: "linear",
                     delay: floatDelay,
                 }}
                 whileHover={{
@@ -247,30 +247,31 @@ export default function ApproachPage() {
             ═══════════════════════════════════════════════════════════════════ */}
             <section id="hero" className="min-h-screen flex flex-col items-center justify-center relative px-6 snap-start snap-always overflow-hidden">
                 {/* Animated Background Elements */}
+                {/* Performance: will-change hints for GPU acceleration, slower animations for mobile */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {/* Gradient orbs - Orange/Amber theme */}
+                    {/* Gradient orbs - Orange/Amber theme, responsive sizing */}
                     <motion.div
-                        className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent blur-3xl"
+                        className="absolute top-1/4 -left-1/2 md:-left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent blur-3xl will-change-transform"
                         animate={{
                             x: [0, 30, 0],
                             y: [0, -20, 0],
                         }}
                         transition={{
-                            duration: 15,
+                            duration: 20,
                             repeat: Infinity,
-                            ease: "easeInOut"
+                            ease: "linear"
                         }}
                     />
                     <motion.div
-                        className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-orange-500/10 via-amber-500/5 to-transparent blur-3xl"
+                        className="absolute bottom-1/4 -right-1/2 md:-right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] rounded-full bg-gradient-to-bl from-orange-500/10 via-amber-500/5 to-transparent blur-3xl will-change-transform"
                         animate={{
                             x: [0, -40, 0],
                             y: [0, 30, 0],
                         }}
                         transition={{
-                            duration: 18,
+                            duration: 25,
                             repeat: Infinity,
-                            ease: "easeInOut"
+                            ease: "linear"
                         }}
                     />
                 </div>
@@ -347,9 +348,9 @@ export default function ApproachPage() {
                         )}
                         animate={{ y: [0, 8, 0] }}
                         transition={{
-                            duration: 2.5,
+                            duration: 3,
                             repeat: Infinity,
-                            ease: "easeInOut",
+                            ease: "linear",
                         }}
                     >
                         <span className="text-xl">↓</span>
