@@ -146,36 +146,35 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
             ═══════════════════════════════════════════════════════════════════ */}
             <section
                 ref={heroRef}
-                className="relative min-h-[60vh] md:min-h-[70vh] flex items-center justify-center overflow-hidden px-4 pt-24 md:pt-32"
+                className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-16 md:pt-20 lg:pt-24 pb-6"
             >
-                {/* Background gradient */}
-                <div className="absolute inset-0 bg-gradient-to-b from-neutral-100 to-transparent dark:from-neutral-900 dark:to-transparent" />
 
                 {/* Animated Background Elements */}
+                {/* Performance: will-change hints for GPU acceleration, slower animations for mobile */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     {/* Gradient orbs - Rose/Pink theme, responsive sizing */}
                     <motion.div
-                        className="absolute top-1/4 -left-1/2 md:-left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-br from-rose-500/10 via-pink-500/5 to-transparent blur-3xl"
+                        className="absolute top-1/4 -left-1/2 md:-left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-br from-rose-500/10 via-pink-500/5 to-transparent blur-3xl will-change-transform"
                         animate={{
                             x: [0, 30, 0],
                             y: [0, -20, 0],
                         }}
                         transition={{
-                            duration: 15,
+                            duration: 20,
                             repeat: Infinity,
-                            ease: "easeInOut"
+                            ease: "linear"
                         }}
                     />
                     <motion.div
-                        className="absolute bottom-1/4 -right-1/2 md:-right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] rounded-full bg-gradient-to-bl from-pink-500/10 via-rose-500/5 to-transparent blur-3xl"
+                        className="absolute bottom-1/4 -right-1/2 md:-right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] rounded-full bg-gradient-to-bl from-pink-500/10 via-rose-500/5 to-transparent blur-3xl will-change-transform"
                         animate={{
                             x: [0, -40, 0],
                             y: [0, 30, 0],
                         }}
                         transition={{
-                            duration: 18,
+                            duration: 25,
                             repeat: Infinity,
-                            ease: "easeInOut"
+                            ease: "linear"
                         }}
                     />
                 </div>
@@ -215,7 +214,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                             </ShinyText>
                         </motion.p>
 
-                        <h1 className="font-serif leading-[1.05] mb-8">
+                        <h1 className="font-serif leading-[1.05] mb-6 md:mb-8">
                             <span className="block">
                                 <SplitText
                                     text="Let's start a"
@@ -230,12 +229,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                                     animationSpeed={5}
                                     className="italic"
                                 >
-                                    <SplitText
-                                        text="conversation."
-                                        delay={45}
-                                        animateBy="letters"
-                                        duration={0.4}
-                                    />
+                                    conversation.
                                 </GradientText>
                             </span>
                         </h1>
