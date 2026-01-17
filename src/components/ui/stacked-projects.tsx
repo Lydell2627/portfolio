@@ -101,7 +101,7 @@ function StackedProjectCard({ project, index, totalProjects }: StackedProjectCar
                                     src={thumbnailUrl}
                                     alt={project.title}
                                     fill
-                                    className="object-cover"
+                                    className="object-contain"
                                 />
                             </motion.div>
                         ) : (

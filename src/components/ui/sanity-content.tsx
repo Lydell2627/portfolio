@@ -68,7 +68,7 @@ const components: PortableTextComponents = {
                             src={imageUrl}
                             alt={value.alt || "Project image"}
                             fill
-                            className="object-cover"
+                            className="object-contain"
                         />
                     </div>
                     {value.caption && (

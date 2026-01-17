@@ -213,7 +213,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                                                 src={thumbnailUrl}
                                                 alt={project.title}
                                                 fill
-                                                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                                className="object-contain group-hover:scale-105 transition-transform duration-700"
                                                 priority
                                             />
                                         ) : (

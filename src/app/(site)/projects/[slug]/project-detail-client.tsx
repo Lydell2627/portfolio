@@ -128,7 +128,7 @@ export function ProjectDetailClient({
                             alt={project.title}
                             fill
                             sizes="100vw"
-                            className="object-cover"
+                            className="object-contain"
                             quality={85}
                             priority
                         />
