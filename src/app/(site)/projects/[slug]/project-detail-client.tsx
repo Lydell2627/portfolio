@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/lib/sanity";
+import { SanityContent } from "@/components/ui/sanity-content";
 
 // Support both Sanity and legacy project types
 interface SanityProject {
@@ -76,6 +77,7 @@ export function ProjectDetailClient({
 
     // Check if content exists and is array
     const hasLegacyContent = !isSanityProject(project) && Array.isArray(project.content);
+    const hasSanityContent = isSanityProject(project) && Array.isArray(project.content) && project.content.length > 0;
 
     return (
         <article className="pt-24 md:pt-32">
@@ -175,6 +177,20 @@ export function ProjectDetailClient({
                     </div>
                 </motion.div>
             </section>
+            {/* ═══════════════════════════════════════════════════════════════════
+          SANITY CMS CONTENT (Portable Text)
+          ═══════════════════════════════════════════════════════════════════ */}
+            {hasSanityContent && (
+                <motion.section
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="container mb-16 md:mb-24"
+                >
+                    <SanityContent content={(project as SanityProject).content as unknown[]} />
+                </motion.section>
+            )}
 
             {/* ═══════════════════════════════════════════════════════════════════
           CASE STUDY CONTENT (Legacy format)
