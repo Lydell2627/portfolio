@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Quote } from "lucide-react";
+import { ArrowUpRight, Quote, ExternalLink } from "lucide-react";
 import { urlFor } from "@/lib/sanity";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,6 +18,7 @@ interface ProjectWithThumbnail {
     tools?: string[];
     client?: string;
     clientReview?: string;
+    liveUrl?: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     thumbnail?: any;
 }
@@ -219,8 +220,9 @@ function FeaturedProjectItem({
                     </motion.div>
                 )}
 
-                {/* CTA Button */}
-                <motion.div variants={textVariants} className="mt-8">
+                {/* CTA Buttons */}
+                <motion.div variants={textVariants} className="mt-8 flex flex-wrap items-center gap-4">
+                    {/* View Case Study */}
                     <Link
                         href={`/projects/${project.slug}`}
                         className="inline-flex items-center gap-3 group/btn"
@@ -232,6 +234,19 @@ function FeaturedProjectItem({
                             <ArrowUpRight className="w-4 h-4 text-white dark:text-neutral-900" />
                         </div>
                     </Link>
+
+                    {/* Visit Live Site */}
+                    {project.liveUrl && (
+                        <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium border border-neutral-300 dark:border-neutral-700 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors group/live"
+                        >
+                            <span>Visit Live Site</span>
+                            <ExternalLink className="w-4 h-4 opacity-60 group-hover/live:opacity-100 transition-opacity" />
+                        </a>
+                    )}
                 </motion.div>
             </motion.div>
         </motion.div>

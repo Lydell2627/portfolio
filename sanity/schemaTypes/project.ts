@@ -116,6 +116,15 @@ export const project = defineType({
             initialValue: false,
         }),
         defineField({
+            name: 'liveUrl',
+            title: 'Live Project URL',
+            type: 'url',
+            description: 'Link to the actual live website/project (e.g., https://example.com)',
+            validation: (Rule) => Rule.uri({
+                scheme: ['http', 'https']
+            }),
+        }),
+        defineField({
             name: 'order',
             title: 'Display Order',
             type: 'number',
