@@ -56,9 +56,9 @@ function ProjectCard({ project, index }: ProjectCardProps) {
     const category = project.category || "Design";
     const tools = project.tools || [];
 
-    // Get thumbnail URL for Sanity projects - Higher quality images
+    // Get thumbnail URL for Sanity projects - Optimized size for CDN
     const thumbnailUrl = isSanityProject(project) && project.thumbnail
-        ? urlFor(project.thumbnail).width(1400).height(900).quality(90).url()
+        ? urlFor(project.thumbnail).width(1200).height(800).quality(85).url()
         : null;
 
     return (
@@ -78,7 +78,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                             fill
                             sizes="(max-width: 768px) 100vw, 50vw"
                             className="object-cover transition-transform duration-700 group-hover:scale-102"
-                            quality={90}
+                            quality={85}
                         />
                     ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-800 dark:to-neutral-900" />

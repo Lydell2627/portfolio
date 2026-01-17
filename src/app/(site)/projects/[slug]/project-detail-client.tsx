@@ -67,11 +67,11 @@ export function ProjectDetailClient({
     const duration = project.duration || "Ongoing";
     const year = project.year || new Date().getFullYear();
 
-    // Get hero image URL for Sanity projects - High quality, large size
+    // Get hero image URL for Sanity projects - Optimized size to prevent CDN timeout
     const heroImageUrl = isSanityProject(project) && project.heroImage
-        ? urlFor(project.heroImage).width(2400).height(1350).quality(95).url()
+        ? urlFor(project.heroImage).width(1600).height(900).quality(85).url()
         : isSanityProject(project) && project.thumbnail
-            ? urlFor(project.thumbnail).width(2400).height(1350).quality(95).url()
+            ? urlFor(project.thumbnail).width(1600).height(900).quality(85).url()
             : null;
 
     // Check if content exists and is array
@@ -127,7 +127,7 @@ export function ProjectDetailClient({
                             fill
                             sizes="100vw"
                             className="object-cover"
-                            quality={95}
+                            quality={85}
                             priority
                         />
                     ) : (

@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
         pathname: '/images/**',
       },
     ],
+    // Configure allowed quality values for optimization
+    qualities: [75, 85, 90, 95],
   },
 };
 
