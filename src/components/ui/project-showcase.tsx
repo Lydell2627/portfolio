@@ -16,6 +16,7 @@ interface SanityProject {
     category?: string;
     tools?: string[];
     client?: string;
+    clientReview?: string;
     thumbnail?: { asset: { _ref: string } };
 }
 
@@ -49,6 +50,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
     const category = project?.category || "Design";
     const client = project?.client || "Personal Project";
     const description = project?.description || "";
+    const clientReview = (project && isSanityProject(project)) ? project.clientReview : undefined;
 
     const thumbnailUrl = project && isSanityProject(project) && project.thumbnail
         ? urlFor(project.thumbnail).width(1400).height(900).url()
@@ -158,13 +160,23 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                         </div>
 
                         {/* Tools */}
-                        <div className="flex flex-wrap gap-2 mb-8">
-                            {tools.slice(0, 3).map((tool) => (
+                        <div className="flex flex-wrap gap-2 mb-6">
+                            {tools.slice(0, 4).map((tool) => (
                                 <span key={tool} className="text-xs px-3 py-1.5 rounded-full border border-neutral-200 dark:border-neutral-800">
                                     {tool}
                                 </span>
                             ))}
                         </div>
+
+                        {/* Client Review/Testimonial */}
+                        {clientReview && (
+                            <div className="mb-8 pl-4 border-l-2 border-rose-400/50 dark:border-rose-500/50">
+                                <p className="text-sm text-neutral-600 dark:text-neutral-300 italic leading-relaxed">
+                                    "{clientReview}"
+                                </p>
+                                <p className="text-xs text-neutral-400 mt-2">— {client}</p>
+                            </div>
+                        )}
 
                         {/* CTA */}
                         <Link

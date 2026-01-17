@@ -83,6 +83,12 @@ export const project = defineType({
             type: 'string',
         }),
         defineField({
+            name: 'clientReview',
+            title: 'Client Review/Testimonial',
+            type: 'string',
+            description: 'A short one-line testimonial or feedback quote from the client',
+        }),
+        defineField({
             name: 'role',
             title: 'Your Role',
             type: 'string',

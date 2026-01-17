@@ -52,6 +52,7 @@ export const featuredProjectsQuery = `*[_type == "project" && featured == true] 
     category,
     tools,
     client,
+    clientReview,
     year,
     featured
 }`
