@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useMemo } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
@@ -119,8 +119,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
     );
 }
 
-export function ProjectsPageClient({ projects, categories }: ProjectsPageClientProps) {
-    const [activeCategory, setActiveCategory] = useState<string>("All");
+export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
     const heroRef = useRef<HTMLDivElement>(null);
 
     const { scrollYProgress } = useScroll({
@@ -130,18 +129,6 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
 
     const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
     const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
-    // Filter projects by category
-    const filteredProjects = useMemo(() => {
-        if (activeCategory === "All") return projects;
-        return projects.filter((p) => p.category === activeCategory);
-    }, [projects, activeCategory]);
-
-    // Count projects by category
-    const getCategoryCount = (category: string) => {
-        if (category === "All") return projects.length;
-        return projects.filter((p) => p.category === category).length;
-    };
 
     return (
         <div>
@@ -288,92 +275,29 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════════
-                FILTER & PROJECTS GRID
+                PROJECTS GRID
             ═══════════════════════════════════════════════════════════════════ */}
             <section className="section pt-16 md:pt-24">
                 <div className="container">
-                    {/* Filter Navigation */}
-                    <motion.nav
+
+                    {/* Projects Grid */}
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                        className="mb-16 md:mb-24"
+                        transition={{ duration: 0.4 }}
+                        className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
                     >
-                        <p className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-500 mb-6">
-                            Filter by
-                        </p>
-                        {/* Responsive filter buttons: smaller gap on very small screens */}
-                        <div className="flex flex-wrap gap-2 md:gap-3">
-                            {categories.map((category, index) => (
-                                <motion.button
-                                    key={category}
-                                    onClick={() => setActiveCategory(category)}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.05 }}
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    /* Responsive: smaller padding on mobile */
-                                    className={cn(
-                                        "px-4 py-2.5 md:px-6 md:py-3",
-                                        "text-sm font-medium",
-                                        "rounded-full",
-                                        "border-2 transition-all duration-300",
-                                        activeCategory === category
-                                            ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 border-neutral-900 dark:border-white"
-                                            : "bg-transparent border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600"
-                                    )}
-                                >
-                                    {category}
-                                    {category !== "All" && (
-                                        <span className="ml-2 text-xs opacity-50">
-                                            ({getCategoryCount(category)})
-                                        </span>
-                                    )}
-                                </motion.button>
-                            ))}
-                        </div>
-                    </motion.nav>
+                        {projects.map((project, index) => (
+                            <ProjectCard
+                                key={isSanityProject(project) ? project._id : project.slug}
+                                project={project}
+                                index={index}
+                            />
+                        ))}
+                    </motion.div>
 
-                    {/* Projects Grid */}
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={activeCategory}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.4 }}
-                            className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
-                        >
-                            {filteredProjects.map((project, index) => (
-                                <ProjectCard
-                                    key={isSanityProject(project) ? project._id : project.slug}
-                                    project={project}
-                                    index={index}
-                                />
-                            ))}
-                        </motion.div>
-                    </AnimatePresence>
 
-                    {/* Empty State */}
-                    {filteredProjects.length === 0 && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="py-20 text-center"
-                        >
-                            <p className="text-neutral-500 dark:text-neutral-400 mb-6">
-                                No projects found in this category.
-                            </p>
-                            <button
-                                onClick={() => setActiveCategory("All")}
-                                className="text-sm font-medium underline underline-offset-4 hover:opacity-60 transition-opacity"
-                            >
-                                View all projects
-                            </button>
-                        </motion.div>
-                    )}
 
                     {/* Projects Count */}
                     <motion.div
@@ -383,7 +307,6 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
                         className="mt-16 md:mt-24 pt-8 border-t border-neutral-200 dark:border-neutral-800 flex justify-between items-center"
                     >
                         <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                            Showing <span className="font-medium text-neutral-900 dark:text-white">{filteredProjects.length}</span> of{" "}
                             <span className="font-medium text-neutral-900 dark:text-white">{projects.length}</span> projects
                         </p>
                         <Link
