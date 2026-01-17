@@ -195,9 +195,10 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                             <AnimatedButton href="/projects">
                                 View our work
                             </AnimatedButton>
+                            {/* Responsive CTA: smaller padding on mobile for visual balance */}
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center justify-center px-8 py-4 text-sm font-medium border border-neutral-300 dark:border-neutral-700 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                                className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 text-sm font-medium border border-neutral-300 dark:border-neutral-700 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                             >
                                 Get in touch
                             </Link>

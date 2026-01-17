@@ -66,7 +66,8 @@ export function Testimonials({ testimonials: propTestimonials }: TestimonialsPro
                     </p>
                 </motion.div>
 
-                <div className="max-w-4xl mx-auto relative min-h-[280px] md:min-h-[200px]">
+                {/* Responsive testimonial container: taller on mobile for longer quotes */}
+                <div className="max-w-4xl mx-auto relative min-h-[320px] md:min-h-[200px]">
                     {/* Quote Icon */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}

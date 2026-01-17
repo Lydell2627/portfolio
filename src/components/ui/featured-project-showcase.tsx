@@ -112,7 +112,8 @@ function FeaturedProjectItem({
             animate={isInView ? "visible" : "hidden"}
             className={`
                 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center
-                py-16 md:py-24 lg:py-32
+                /* Responsive: reduced vertical padding on mobile for better content density */
+                py-12 md:py-16 lg:py-24
                 ${index > 0 ? "border-t border-neutral-200 dark:border-neutral-800" : ""}
             `}
         >

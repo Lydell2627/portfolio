@@ -301,7 +301,8 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
                         <p className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-500 mb-6">
                             Filter by
                         </p>
-                        <div className="flex flex-wrap gap-3">
+                        {/* Responsive filter buttons: smaller gap on very small screens */}
+                        <div className="flex flex-wrap gap-2 md:gap-3">
                             {categories.map((category, index) => (
                                 <motion.button
                                     key={category}
@@ -311,8 +312,9 @@ export function ProjectsPageClient({ projects, categories }: ProjectsPageClientP
                                     transition={{ delay: index * 0.05 }}
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
+                                    /* Responsive: smaller padding on mobile */
                                     className={cn(
-                                        "px-6 py-3",
+                                        "px-4 py-2.5 md:px-6 md:py-3",
                                         "text-sm font-medium",
                                         "rounded-full",
                                         "border-2 transition-all duration-300",

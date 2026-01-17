@@ -385,7 +385,8 @@ export function AboutPageClient({ stats, testimonials }: AboutPageClientProps) {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                                className="group grid md:grid-cols-12 gap-6 md:gap-12 py-10 md:py-14 border-b border-neutral-200 dark:border-neutral-800 last:border-b-0 hover:bg-neutral-100/50 dark:hover:bg-neutral-800/30 transition-colors -mx-6 px-6 rounded-xl"
+                                /* Responsive: tighter vertical spacing on mobile */
+                                className="group grid md:grid-cols-12 gap-6 md:gap-12 py-8 md:py-10 lg:py-14 border-b border-neutral-200 dark:border-neutral-800 last:border-b-0 hover:bg-neutral-100/50 dark:hover:bg-neutral-800/30 transition-colors -mx-6 px-6 rounded-xl"
                             >
                                 <div className="md:col-span-2">
                                     <span className="font-serif text-4xl md:text-5xl text-neutral-300 dark:text-neutral-700 group-hover:text-neutral-500 dark:group-hover:text-neutral-500 transition-colors">

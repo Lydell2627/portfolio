@@ -73,9 +73,10 @@ function PillWrapper({
     return (
         <motion.div
             layout
+            /* Responsive Strategy: Tighter pill height on mobile (h-11) for better viewport fit */
             className={cn(
                 "flex items-center",
-                "h-12 md:h-14",
+                "h-11 md:h-14",
                 "px-3 md:px-6",
                 "transition-colors duration-300",
                 // Mobile: Always transparent (parent has the styling)

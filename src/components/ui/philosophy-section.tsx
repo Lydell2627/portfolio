@@ -98,9 +98,11 @@ export function PhilosophySection() {
                         <motion.div
                             key={item.title}
                             variants={itemVariants}
-                            className="group p-8 rounded-2xl bg-white dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500 transition-all duration-300 hover:shadow-lg"
+                            /* Responsive: smaller padding on mobile for compact cards */
+                            className="group p-6 md:p-8 rounded-2xl bg-white dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500 transition-all duration-300 hover:shadow-lg"
                         >
-                            <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            {/* Responsive icon container: smaller on mobile */}
+                            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300">
                                 <item.icon className="w-6 h-6 text-neutral-700 dark:text-neutral-300" />
                             </div>
                             <h4 className="text-lg font-semibold mb-3">{item.title}</h4>

@@ -503,9 +503,10 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                                             disabled={isSubmitting}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
+                                            /* Responsive: smaller button on mobile */
                                             className={cn(
                                                 "group inline-flex items-center gap-4",
-                                                "px-10 py-5",
+                                                "px-8 py-4 md:px-10 md:py-5",
                                                 "text-sm font-medium",
                                                 "bg-neutral-900 dark:bg-white text-white dark:text-neutral-900",
                                                 "rounded-full",
