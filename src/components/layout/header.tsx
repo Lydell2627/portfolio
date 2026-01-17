@@ -362,7 +362,7 @@ export function Header() {
                                     ))}
                                 </nav>
 
-                                {/* Mobile CTA - Always white button since menu bg is always contrasting */}
+                                {/* Mobile CTA - Force dark text on white button */}
                                 <motion.div
                                     className="pb-12 pt-4"
                                     initial={{ opacity: 0, y: 50 }}
@@ -372,7 +372,7 @@ export function Header() {
                                     <Link
                                         href="/contact"
                                         onClick={() => setIsMobileMenuOpen(false)}
-                                        className="inline-flex items-center justify-center w-full px-8 py-5 text-base font-semibold bg-white text-neutral-900 rounded-full transition-all duration-300 active:scale-95"
+                                        className="inline-flex items-center justify-center w-full px-8 py-5 text-base font-semibold bg-white !text-neutral-900 rounded-full transition-all duration-300 active:scale-95"
                                     >
                                         Book a call
                                     </Link>
