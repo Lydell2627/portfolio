@@ -47,6 +47,7 @@ export const featuredProjectsQuery = `*[_type == "project" && featured == true] 
     title,
     "slug": slug.current,
     description,
+    tagline,
     thumbnail,
     heroImage,
     category,

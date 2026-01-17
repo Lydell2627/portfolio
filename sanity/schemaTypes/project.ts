@@ -28,6 +28,12 @@ export const project = defineType({
             rows: 3,
         }),
         defineField({
+            name: 'tagline',
+            title: 'Tagline',
+            type: 'string',
+            description: 'A catchy one-liner quote for the featured projects showcase (e.g., "Where innovation meets elegance")',
+        }),
+        defineField({
             name: 'content',
             title: 'Full Content',
             type: 'array',

@@ -8,7 +8,7 @@ import { ScrollIndicator } from "@/components/ui/scroll-indicator";
 import { TechMarquee } from "@/components/ui/tech-marquee";
 import { Testimonials } from "@/components/ui/testimonials";
 import { PhilosophySection } from "@/components/ui/philosophy-section";
-import { ProjectShowcase } from "@/components/ui/project-showcase";
+import { FeaturedProjectShowcase } from "@/components/ui/featured-project-showcase";
 import { SplitText } from "@/components/ui/split-text";
 import { BlurText } from "@/components/ui/blur-text";
 import { GradientText } from "@/components/ui/gradient-text";
@@ -243,7 +243,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
             {/* ═══════════════════════════════════════════════════════════════════
           PROJECT SHOWCASE - Scroll-triggered reveal
           ═══════════════════════════════════════════════════════════════════ */}
-            <ProjectShowcase projects={projects} />
+            <FeaturedProjectShowcase projects={projects} />
 
             {/* ═══════════════════════════════════════════════════════════════════
           TESTIMONIALS
