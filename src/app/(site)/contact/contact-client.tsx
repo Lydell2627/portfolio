@@ -17,13 +17,6 @@ import { pricingTiers, formatTierSelection, type PricingTier } from "@/config/pr
 interface SiteSettings {
     contactEmail?: string;
     contactPhone?: string;
-    socialLinks?: {
-        instagram?: string;
-        twitter?: string;
-        linkedin?: string;
-        dribbble?: string;
-        behance?: string;
-    };
 }
 
 interface ContactPageClientProps {
@@ -52,7 +45,6 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
     // Use Sanity data or fallbacks
     const email = siteSettings?.contactEmail || "hello@studio.design";
     const phone = siteSettings?.contactPhone || "+1 555 123 4567";
-    const socials = siteSettings?.socialLinks;
 
     // Format phone for tel: link (remove spaces and special chars)
     const phoneHref = `tel:${phone.replace(/[\s\-\(\)]/g, "")}`;
@@ -83,23 +75,6 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
             href: null,
         },
     ];
-
-    // Build social links from Sanity or use defaults
-    const socialLabels = [
-        { key: "instagram", label: "Instagram" },
-        { key: "twitter", label: "Twitter" },
-        { key: "linkedin", label: "LinkedIn" },
-        { key: "dribbble", label: "Dribbble" },
-    ];
-
-    const socialLinks = socials
-        ? socialLabels
-            .filter((s) => socials[s.key as keyof typeof socials])
-            .map((s) => ({
-                label: s.label,
-                href: socials[s.key as keyof typeof socials] as string,
-            }))
-        : socialLabels.map((s) => ({ label: s.label, href: "#" }));
 
     const { scrollYProgress } = useScroll({
         target: heroRef,
@@ -364,26 +339,6 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                                         </div>
                                     </motion.div>
                                 ))}
-                            </div>
-
-                            {/* Social Links */}
-                            <div className="pt-8 border-t border-neutral-200 dark:border-neutral-800">
-                                <p className="text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-4">
-                                    Follow Us
-                                </p>
-                                <div className="flex gap-4">
-                                    {socialLinks.map((social) => (
-                                        <a
-                                            key={social.label}
-                                            href={social.href}
-                                            target={social.href !== "#" ? "_blank" : undefined}
-                                            rel={social.href !== "#" ? "noopener noreferrer" : undefined}
-                                            className="text-sm font-medium hover:opacity-60 transition-opacity"
-                                        >
-                                            {social.label}
-                                        </a>
-                                    ))}
-                                </div>
                             </div>
                         </motion.div>
 
