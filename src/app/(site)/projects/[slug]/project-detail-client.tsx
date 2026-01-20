@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/lib/sanity";
 import { SanityContent } from "@/components/ui/sanity-content";
@@ -20,6 +20,7 @@ interface SanityProject {
     role?: string;
     duration?: string;
     year?: number;
+    liveUrl?: string;
     thumbnail?: { asset: { _ref: string } };
     heroImage?: { asset: { _ref: string } };
     content?: unknown[];
@@ -67,6 +68,7 @@ export function ProjectDetailClient({
     const role = project.role || "Designer & Developer";
     const duration = project.duration || "Ongoing";
     const year = project.year || new Date().getFullYear();
+    const liveUrl = isSanityProject(project) ? project.liveUrl : undefined;
 
     // Get hero image URL for Sanity projects - Optimized size to prevent CDN timeout
     const heroImageUrl = isSanityProject(project) && project.heroImage
@@ -98,16 +100,31 @@ export function ProjectDetailClient({
                         <h1 className="font-serif">{project.title}</h1>
                     </motion.div>
 
-                    {/* Right - Description */}
+                    {/* Right - Description + Live Site Button */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, delay: 0.1 }}
-                        className="flex flex-col justify-end"
+                        className="flex flex-col justify-end gap-6"
                     >
                         <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
                             {project.description}
                         </p>
+
+                        {/* Visit Live Site Button */}
+                        {liveUrl && (
+                            <motion.a
+                                href={liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 rounded-full font-medium text-sm hover:opacity-90 transition-opacity w-fit"
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                Visit Live Site
+                                <ExternalLink className="w-4 h-4" />
+                            </motion.a>
+                        )}
                     </motion.div>
                 </div>
             </section>

@@ -72,7 +72,8 @@ export const projectBySlugQuery = `*[_type == "project" && slug.current == $slug
     client,
     role,
     duration,
-    year
+    year,
+    liveUrl
 }`
 
 // Testimonials
