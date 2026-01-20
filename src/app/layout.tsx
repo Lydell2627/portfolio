@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import { getSiteSettings } from "@/lib/sanity";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,41 +25,46 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "STUDIO | Creative Design Agency",
-    template: "%s | STUDIO",
-  },
-  description:
-    "Award-winning creative design agency crafting premium digital experiences. We specialize in UI/UX design, web development, and brand identity.",
-  keywords: [
-    "UI/UX Design",
-    "Web Design",
-    "Product Design",
-    "Brand Identity",
-    "Digital Agency",
-    "Creative Studio",
-  ],
-  authors: [{ name: "STUDIO" }],
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "STUDIO",
-    title: "STUDIO | Creative Design Agency",
-    description:
-      "Award-winning creative design agency crafting premium digital experiences.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "STUDIO | Creative Design Agency",
-    description:
-      "Award-winning creative design agency crafting premium digital experiences.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await getSiteSettings();
+  const siteName = siteSettings?.siteName || "STUDIO";
+  const tagline = siteSettings?.siteTagline || "Creative Design Agency";
+  const description = siteSettings?.siteDescription ||
+    "Award-winning creative design agency crafting premium digital experiences. We specialize in UI/UX design, web development, and brand identity.";
+
+  return {
+    title: {
+      default: `${siteName} | ${tagline}`,
+      template: `%s | ${siteName}`,
+    },
+    description,
+    keywords: [
+      "UI/UX Design",
+      "Web Design",
+      "Product Design",
+      "Brand Identity",
+      "Digital Agency",
+      "Creative Studio",
+    ],
+    authors: [{ name: siteName }],
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      siteName: siteName,
+      title: `${siteName} | ${tagline}`,
+      description,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${siteName} | ${tagline}`,
+      description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export default function RootLayout({
   children,
