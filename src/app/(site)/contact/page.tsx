@@ -1,10 +1,18 @@
-import { getSiteSettings } from "@/lib/sanity";
+import { getSiteSettings, getPricingTiers } from "@/lib/sanity";
 import { ContactPageClient } from "./contact-client";
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
 export default async function ContactPage() {
-    const siteSettings = await getSiteSettings();
+    const [siteSettings, pricingTiers] = await Promise.all([
+        getSiteSettings(),
+        getPricingTiers(),
+    ]);
 
-    return <ContactPageClient siteSettings={siteSettings} />;
+    return (
+        <ContactPageClient
+            siteSettings={siteSettings}
+            pricingTiers={pricingTiers}
+        />
+    );
 }

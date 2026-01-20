@@ -12,7 +12,7 @@ import { SplitText } from "@/components/ui/split-text";
 import { BlurText } from "@/components/ui/blur-text";
 import { GradientText } from "@/components/ui/gradient-text";
 import { ShinyText } from "@/components/ui/shiny-text";
-import { pricingTiers, formatTierSelection, type PricingTier } from "@/config/pricing-tiers";
+import { pricingTiers as staticPricingTiers, formatTierSelection, type PricingTier } from "@/config/pricing-tiers";
 
 interface SiteSettings {
     contactEmail?: string;
@@ -21,6 +21,7 @@ interface SiteSettings {
 
 interface ContactPageClientProps {
     siteSettings?: SiteSettings;
+    pricingTiers?: PricingTier[];
 }
 
 // Updated schema: budget is now required
@@ -36,7 +37,10 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 type SubmissionState = "idle" | "submitting" | "success" | "error";
 
-export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
+export function ContactPageClient({ siteSettings, pricingTiers }: ContactPageClientProps) {
+    // Use Sanity pricing tiers if available, otherwise fall back to static
+    const tiers = pricingTiers && pricingTiers.length > 0 ? pricingTiers : staticPricingTiers;
+
     const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [selectedTier, setSelectedTier] = useState<PricingTier | null>(null);
@@ -103,9 +107,9 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
 
     // Update selected tier when budget changes
     useEffect(() => {
-        const tier = pricingTiers.find((t) => t.id === selectedBudget);
+        const tier = tiers.find((t) => t.id === selectedBudget);
         setSelectedTier(tier || null);
-    }, [selectedBudget]);
+    }, [selectedBudget, tiers]);
 
     // Handle tier selection
     const handleTierSelect = (tier: PricingTier) => {
@@ -134,7 +138,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
         setSubmissionState("submitting");
         setErrorMessage("");
 
-        const tier = pricingTiers.find((t) => t.id === data.budget);
+        const tier = tiers.find((t) => t.id === data.budget);
         if (!tier) {
             setSubmissionState("error");
             setErrorMessage("Invalid tier selected");
@@ -498,7 +502,7 @@ export function ContactPageClient({ siteSettings }: ContactPageClientProps) {
                                             role="radiogroup"
                                             aria-required="true"
                                         >
-                                            {pricingTiers.map((tier) => (
+                                            {tiers.map((tier) => (
                                                 <div key={tier.id} className="relative">
                                                     <input
                                                         type="radio"

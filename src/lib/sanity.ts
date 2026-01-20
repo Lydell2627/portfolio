@@ -96,6 +96,18 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
     stats
 }`
 
+// Pricing Tiers
+export const pricingTiersQuery = `*[_type == "pricingTier"] | order(order asc) {
+    _id,
+    "id": slug.current,
+    name,
+    range,
+    popular,
+    delivery,
+    features,
+    order
+}`
+
 // ═══════════════════════════════════════════════════════════════════
 // FETCH FUNCTIONS
 // ═══════════════════════════════════════════════════════════════════
@@ -118,4 +130,8 @@ export async function getTestimonials() {
 
 export async function getSiteSettings() {
     return client.fetch(siteSettingsQuery)
+}
+
+export async function getPricingTiers() {
+    return client.fetch(pricingTiersQuery)
 }
