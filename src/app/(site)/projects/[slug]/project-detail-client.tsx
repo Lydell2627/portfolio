@@ -117,7 +117,7 @@ export function ProjectDetailClient({
                                 href={liveUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 rounded-full font-medium text-sm hover:opacity-90 transition-opacity w-fit"
+                                className="inline-flex items-center gap-2 px-6 py-3 border-2 border-neutral-900 dark:border-white text-neutral-900 dark:text-white rounded-full font-medium text-sm hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 transition-all w-fit"
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
