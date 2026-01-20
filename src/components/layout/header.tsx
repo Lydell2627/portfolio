@@ -7,6 +7,14 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
+interface SiteSettings {
+    siteName?: string;
+}
+
+interface HeaderProps {
+    siteSettings?: SiteSettings;
+}
+
 const navLinks = [
     { href: "/projects", label: "Work", number: "1" },
     { href: "/about", label: "Info", number: "2" },
@@ -99,7 +107,9 @@ function PillWrapper({
     );
 }
 
-export function Header() {
+export function Header({ siteSettings }: HeaderProps) {
+    const siteName = siteSettings?.siteName || "STUDIO";
+
     const [isScrolled, setIsScrolled] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -215,7 +225,7 @@ export function Header() {
                                 <LogoIcon className="w-5 h-5" />
                             </motion.div>
                             <div className="flex flex-col leading-none">
-                                <span className="text-sm font-semibold tracking-tight">STUDIO</span>
+                                <span className="text-sm font-semibold tracking-tight">{siteName}</span>
                                 <span className={cn(
                                     "text-[10px] opacity-60",
                                     // Hide subtitle on scroll to save space if needed, or keep it
@@ -321,7 +331,7 @@ export function Header() {
                                         className="flex items-center gap-2"
                                     >
                                         <LogoIcon className="w-6 h-6" />
-                                        <span className="text-sm font-semibold tracking-tight">STUDIO</span>
+                                        <span className="text-sm font-semibold tracking-tight">{siteName}</span>
                                     </Link>
                                     <motion.button
                                         onClick={() => setIsMobileMenuOpen(false)}

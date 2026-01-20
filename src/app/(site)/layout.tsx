@@ -16,7 +16,7 @@ export default async function SiteLayout({
     return (
         <ThemeProvider>
             <div className="flex flex-col min-h-screen">
-                <Header />
+                <Header siteSettings={siteSettings} />
                 <main className="flex-1">{children}</main>
                 <Footer siteSettings={siteSettings} />
             </div>

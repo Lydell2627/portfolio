@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 
 interface SiteSettings {
+    siteName?: string;
     contactEmail?: string;
 }
 
@@ -23,6 +24,7 @@ export function Footer({ siteSettings }: FooterProps) {
     const currentYear = new Date().getFullYear();
 
     // Use Sanity data or fallback to defaults
+    const siteName = siteSettings?.siteName || "STUDIO";
     const email = siteSettings?.contactEmail || "hello@studio.design";
 
     const scrollToTop = () => {
@@ -52,7 +54,7 @@ export function Footer({ siteSettings }: FooterProps) {
                     {/* Left - Branding & Back to Top */}
                     <div className="md:col-span-4 space-y-8">
                         <Link href="/" className="inline-block">
-                            <span className="text-xl font-semibold tracking-tight">STUDIO</span>
+                            <span className="text-xl font-semibold tracking-tight">{siteName}</span>
                         </Link>
                         <p className="text-sm text-[var(--dark-secondary)] max-w-xs leading-relaxed">
                             A creative design agency crafting premium digital experiences for
@@ -109,7 +111,7 @@ export function Footer({ siteSettings }: FooterProps) {
                     {/* Bottom Bar */}
                     <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <p className="text-xs text-[var(--dark-secondary)]">
-                            © {currentYear} STUDIO. All rights reserved.
+                            © {currentYear} {siteName}. All rights reserved.
                         </p>
                         <div className="flex gap-6">
                             <a

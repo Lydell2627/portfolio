@@ -49,9 +49,10 @@ interface Testimonial {
 interface HomePageClientProps {
     projects: Project[];
     testimonials?: Testimonial[];
+    siteName?: string;
 }
 
-export function HomePageClient({ projects, testimonials }: HomePageClientProps) {
+export function HomePageClient({ projects, testimonials, siteName = "STUDIO" }: HomePageClientProps) {
     const heroRef = useRef<HTMLDivElement>(null);
 
     const { scrollYProgress } = useScroll({
@@ -114,7 +115,7 @@ export function HomePageClient({ projects, testimonials }: HomePageClientProps) 
                         transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
                         className="font-serif text-[25vw] md:text-[18vw] text-neutral-900/[0.03] dark:text-white/[0.03] whitespace-nowrap"
                     >
-                        STUDIO
+                        {siteName}
                     </motion.span>
                 </motion.div>
 
