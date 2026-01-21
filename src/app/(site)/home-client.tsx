@@ -179,7 +179,7 @@ export function HomePageClient({ projects, testimonials, siteName = "STUDIO" }: 
                         {/* Subtext with BlurText animation */}
                         <p className="text-xs sm:text-sm md:text-base text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto leading-relaxed mb-4 md:mb-6 px-4">
                             <BlurText
-                                text="Award-winning studio specializing in premium web experiences, brand identities, and digital innovation."
+                                text=""
                                 animateBy="words"
                                 delay={60}
                                 stepDuration={0.35}

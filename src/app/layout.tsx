@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteName = siteSettings?.siteName || "STUDIO";
   const tagline = siteSettings?.siteTagline || "Creative Design Agency";
   const description = siteSettings?.siteDescription ||
-    "Award-winning creative design agency crafting premium digital experiences. We specialize in UI/UX design, web development, and brand identity.";
+    "";
 
   return {
     title: {
