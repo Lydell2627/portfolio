@@ -1,8 +1,30 @@
+import type { Metadata } from "next";
 import { getFeaturedProjects, getTestimonials, getSiteSettings } from "@/lib/sanity";
 import { getFeaturedProjects as getStaticFeaturedProjects } from "@/data/projects";
 import { HomePageClient } from "./home-client";
 
 export const revalidate = 60; // Revalidate every 60 seconds
+
+// Homepage-specific metadata
+export const metadata: Metadata = {
+  title: "Premium UI/UX Design & Software Development Agency",
+  description:
+    "We design & build premium digital products that convert. From concept to launch, we partner with startups & enterprises to create software users love. Book a free strategy call.",
+  openGraph: {
+    title: "Premium UI/UX Design & Software Development Agency",
+    description:
+      "We design & build premium digital products that convert. Partner with us to create software users love.",
+    type: "website",
+  },
+  twitter: {
+    title: "Premium UI/UX Design & Software Development Agency",
+    description:
+      "We design & build premium digital products that convert. Partner with us to create software users love.",
+  },
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default async function HomePage() {
   const [sanityProjects, testimonials, siteSettings] = await Promise.all([
