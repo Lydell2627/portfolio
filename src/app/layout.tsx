@@ -27,7 +27,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 // Site URL for canonical and OG tags
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://difusys.com";
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await getSiteSettings();
