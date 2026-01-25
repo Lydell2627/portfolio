@@ -13,6 +13,7 @@ import { SplitText } from "@/components/ui/split-text";
 import { BlurText } from "@/components/ui/blur-text";
 import { GradientText } from "@/components/ui/gradient-text";
 import { ShinyText } from "@/components/ui/shiny-text";
+import { ServicesSection } from "@/components/ui/services-section";
 
 interface SanityProject {
     _id: string;
@@ -130,11 +131,21 @@ export function HomePageClient({ projects, testimonials, siteName = "STUDIO" }: 
                         transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
                         className="max-w-5xl mx-auto"
                     >
-                        {/* Main Headline - Animated with SplitText */}
+                        {/* Eyebrow - SEO positioning */}
+                        <motion.p
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3, duration: 0.6 }}
+                            className="text-xs sm:text-sm font-medium uppercase tracking-[0.2em] text-violet-500 dark:text-violet-400 mb-4"
+                        >
+                            UI/UX Design Studio for Startups & SaaS
+                        </motion.p>
+
+                        {/* Main Headline - SEO Optimized */}
                         <h1 className="font-serif leading-[1.05] mb-4 md:mb-6">
                             <span className="block">
                                 <SplitText
-                                    text="We design"
+                                    text="We Design"
                                     delay={40}
                                     animateBy="letters"
                                     duration={0.5}
@@ -143,14 +154,14 @@ export function HomePageClient({ projects, testimonials, siteName = "STUDIO" }: 
                             <span className="block">
                                 <span className="italic text-neutral-500 dark:text-neutral-400">
                                     <SplitText
-                                        text="experiences"
+                                        text="Digital Products"
                                         delay={35}
                                         animateBy="letters"
                                         duration={0.4}
                                     />
                                 </span>{" "}
                                 <SplitText
-                                    text="that"
+                                    text="That"
                                     delay={40}
                                     animateBy="letters"
                                     duration={0.4}
@@ -161,7 +172,7 @@ export function HomePageClient({ projects, testimonials, siteName = "STUDIO" }: 
                                     colors={["#8B5CF6", "#EC4899", "#6366F1", "#8B5CF6"]}
                                     animationSpeed={6}
                                 >
-                                    inspire
+                                    Convert
                                 </GradientText>
                             </span>
                         </h1>
@@ -173,7 +184,7 @@ export function HomePageClient({ projects, testimonials, siteName = "STUDIO" }: 
                             transition={{ delay: 0.8, duration: 0.6 }}
                             className="font-serif text-base sm:text-lg md:text-xl lg:text-2xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto leading-relaxed mt-2 md:mt-4 mb-2 md:mb-3 px-2"
                         >
-                            From concept to reality, we craft digital masterpieces that captivate audiences and elevate brands.
+                            Premium UI/UX design and Next.js development for startups and SaaS teams. Launch faster with beautiful, high-performing products.
                         </motion.p>
 
                         {/* Subtext with BlurText animation */}
@@ -186,22 +197,22 @@ export function HomePageClient({ projects, testimonials, siteName = "STUDIO" }: 
                             />
                         </p>
 
-                        {/* CTA Buttons */}
+                        {/* CTA Buttons - Conversion Focused */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1, duration: 0.6 }}
                             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 mt-4"
                         >
-                            <AnimatedButton href="/projects">
-                                View our work
+                            <AnimatedButton href="/contact">
+                                Book a Discovery Call
                             </AnimatedButton>
                             {/* Responsive CTA: smaller padding on mobile for visual balance */}
                             <Link
-                                href="/contact"
+                                href="/projects"
                                 className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 text-sm font-medium border border-neutral-300 dark:border-neutral-700 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                             >
-                                Get in touch
+                                View Our Work
                             </Link>
                         </motion.div>
                     </motion.div>
@@ -241,6 +252,11 @@ export function HomePageClient({ projects, testimonials, siteName = "STUDIO" }: 
           TECH STACK MARQUEE
           ═══════════════════════════════════════════════════════════════════ */}
             <TechMarquee />
+
+            {/* ═══════════════════════════════════════════════════════════════════
+          SERVICES SECTION - What We Offer
+          ═══════════════════════════════════════════════════════════════════ */}
+            <ServicesSection />
 
             {/* ═══════════════════════════════════════════════════════════════════
           PROJECT SHOWCASE - Scroll-triggered reveal

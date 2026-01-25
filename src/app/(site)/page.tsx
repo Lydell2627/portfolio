@@ -7,20 +7,20 @@ export const revalidate = 60; // Revalidate every 60 seconds
 
 // Homepage-specific metadata
 export const metadata: Metadata = {
-  title: "Difusys — Premium UI/UX Design & Software Development",
+  title: "Difusys — UI/UX Design Agency for Startups & SaaS",
   description:
-    "We design & build premium digital products that convert. From concept to launch, Difusys partners with startups & enterprises to create software users love.",
+    "Premium UI/UX design and Next.js development for startups. We help SaaS teams launch beautiful, high-converting products. Book a free discovery call.",
   openGraph: {
-    title: "Difusys — Premium UI/UX Design & Software Development",
+    title: "Difusys — UI/UX Design Agency for Startups & SaaS",
     description:
-      "We design & build premium digital products that convert. Partner with Difusys to create software users love.",
+      "Premium UI/UX design and Next.js development for startups. We help SaaS teams launch beautiful, high-converting products.",
     type: "website",
     siteName: "Difusys",
   },
   twitter: {
-    title: "Premium UI/UX Design & Software Development Agency",
+    title: "Difusys — UI/UX Design Agency for Startups & SaaS",
     description:
-      "We design & build premium digital products that convert. Partner with us to create software users love.",
+      "Premium UI/UX design and Next.js development for startups. Launch beautiful, high-converting products.",
   },
   alternates: {
     canonical: "/",
