@@ -34,6 +34,7 @@ export async function generateMetadata({
     params,
 }: ProjectPageProps): Promise<Metadata> {
     const { slug } = await params;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://difusys.com";
 
     // Try Sanity first, then static
     const sanityProject = await getSanityProject(slug);
@@ -45,9 +46,27 @@ export async function generateMetadata({
         };
     }
 
+    const projectUrl = `${siteUrl}/projects/${slug}`;
+    const description = project.description || `${project.title} - A case study by Difusys`;
+
     return {
-        title: project.title,
-        description: project.description,
+        title: `${project.title} — Case Study`,
+        description,
+        alternates: {
+            canonical: projectUrl,
+        },
+        openGraph: {
+            title: `${project.title} — Difusys Case Study`,
+            description,
+            url: projectUrl,
+            type: "article",
+            siteName: "Difusys",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${project.title} — Difusys Case Study`,
+            description,
+        },
     };
 }
 

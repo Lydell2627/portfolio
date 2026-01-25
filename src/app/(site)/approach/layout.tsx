@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 
 // Approach page-specific metadata
 export const metadata: Metadata = {
-    title: "Our Process — Enterprise-Grade Design Methodology",
+    title: "Our Process — Difusys Design Methodology",
     description:
-        "Discover our proven 3-phase design process: Research → Ideate → Design. We use enterprise-grade methodology trusted by startups and Fortune 500 companies.",
+        "Discover Difusys proven 3-phase design process: Understand → Ideate → Design. Enterprise-grade methodology trusted by startups and Fortune 500 companies.",
     openGraph: {
-        title: "Our Process — Enterprise-Grade Design Methodology",
+        title: "Our Process — Difusys Design Methodology",
         description:
             "Discover our proven 3-phase design process trusted by startups and Fortune 500 companies.",
         type: "website",
+        siteName: "Difusys",
     },
     twitter: {
-        title: "Our Process — Enterprise-Grade Design Methodology",
+        title: "Our Process — Difusys Design Methodology",
         description:
             "Discover our proven 3-phase design process trusted by startups and Fortune 500 companies.",
     },

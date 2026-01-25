@@ -108,31 +108,39 @@ function JsonLd() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": siteUrl,
-    name: "STUDIO",
-    description: "Premium UI/UX design and software development agency crafting digital products that convert.",
+    name: "Difusys",
+    alternateName: "Difusys Software Solutions",
+    description: "Premium UI/UX design and software development agency. We craft digital products that convert for startups and enterprises worldwide.",
     url: siteUrl,
     logo: `${siteUrl}/logo.png`,
     image: `${siteUrl}/og-image.jpg`,
     priceRange: "₹₹₹",
+    email: "hello@difusys.com",
+    telephone: "+91-XXXXXXXXXX",
     address: {
       "@type": "PostalAddress",
+      addressLocality: "India",
       addressCountry: "IN",
     },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: "0",
-      longitude: "0",
-    },
-    areaServed: {
-      "@type": "Place",
-      name: "Worldwide",
-    },
+    areaServed: [
+      {
+        "@type": "Country",
+        name: "India",
+      },
+      {
+        "@type": "Place",
+        name: "Worldwide",
+      },
+    ],
+    knowsLanguage: ["English", "Hindi"],
     serviceType: [
       "UI/UX Design",
       "Web Development",
       "Software Development",
       "Product Design",
       "Mobile App Development",
+      "Next.js Development",
+      "React Development",
     ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -151,7 +159,7 @@ function JsonLd() {
           itemOffered: {
             "@type": "Service",
             name: "Web Development",
-            description: "Custom web application development using modern technologies",
+            description: "Custom web application development using Next.js, React, and modern technologies",
           },
         },
         {
@@ -162,13 +170,21 @@ function JsonLd() {
             description: "End-to-end digital product design from concept to launch",
           },
         },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Mobile App Development",
+            description: "Cross-platform mobile application development for iOS and Android",
+          },
+        },
       ],
     },
     sameAs: [
-      // Add your social media URLs
-      // "https://linkedin.com/company/yourstudio",
-      // "https://twitter.com/yourstudio",
-      // "https://dribbble.com/yourstudio",
+      // Add your social media URLs when available
+      // "https://linkedin.com/company/difusys",
+      // "https://twitter.com/difusys",
+      // "https://instagram.com/difusys",
     ],
   };
 
@@ -188,6 +204,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0a0a0a" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <JsonLd />
       </head>
       <body

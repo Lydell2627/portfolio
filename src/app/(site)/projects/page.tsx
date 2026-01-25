@@ -7,14 +7,15 @@ export const revalidate = 60; // Revalidate every 60 seconds
 
 // Projects page-specific metadata
 export const metadata: Metadata = {
-    title: "Our Work — UI/UX Design & Development Portfolio",
+    title: "Our Work — Difusys Portfolio & Case Studies",
     description:
-        "Explore our portfolio of digital product design and software development work. See case studies of projects that achieved 3x user engagement and business growth.",
+        "Explore Difusys portfolio of digital product design and software development work. See case studies of projects that achieved 3x user engagement and business growth.",
     openGraph: {
-        title: "Our Work — UI/UX Design & Development Portfolio",
+        title: "Our Work — Difusys Portfolio & Case Studies",
         description:
             "Explore our portfolio of digital product design and software development case studies.",
         type: "website",
+        siteName: "Difusys",
     },
     twitter: {
         title: "Our Work — UI/UX Design & Development Portfolio",

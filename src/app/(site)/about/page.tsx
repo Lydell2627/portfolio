@@ -6,17 +6,18 @@ export const revalidate = 60; // Revalidate every 60 seconds
 
 // About page-specific metadata
 export const metadata: Metadata = {
-    title: "About Us — Award-Winning Design & Development Studio",
+    title: "About Difusys — Award-Winning Design & Development Studio",
     description:
-        "Meet the team behind 50+ successful digital products. 5+ years crafting premium UI/UX design and software solutions for startups and enterprises worldwide.",
+        "Meet the team behind 50+ successful digital products. Difusys has 5+ years crafting premium UI/UX design and software solutions for startups and enterprises worldwide.",
     openGraph: {
-        title: "About Us — Award-Winning Design & Development Studio",
+        title: "About Difusys — Award-Winning Design & Development Studio",
         description:
             "Meet the team behind 50+ successful digital products. Crafting premium UI/UX design and software solutions worldwide.",
         type: "website",
+        siteName: "Difusys",
     },
     twitter: {
-        title: "About Us — Award-Winning Design & Development Studio",
+        title: "About Difusys — Award-Winning Design & Development Studio",
         description:
             "Meet the team behind 50+ successful digital products. Crafting premium UI/UX design and software solutions worldwide.",
     },
