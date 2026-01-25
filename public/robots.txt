@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /studio/
+Disallow: /api/
+
+# Host
+Host: https://difusys.com
+
+# Sitemaps
+Sitemap: https://difusys.com/sitemap.xml
