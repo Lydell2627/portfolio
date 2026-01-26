@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import {
     Palette,
     Code2,
@@ -17,7 +16,9 @@ const services = [
         subtitle: "for SaaS & Startups",
         description:
             "User-centered design that converts. We craft intuitive interfaces backed by research, wireframes, and pixel-perfect Figma prototypes.",
-        href: "/contact",
+        simpleExplanation:
+            "We make apps and websites look beautiful and easy to use. Think of it like arranging a room so everything is in the perfect spot!",
+        tools: ["Figma", "Adobe XD", "Prototyping"],
     },
     {
         icon: Code2,
@@ -25,7 +26,9 @@ const services = [
         subtitle: "Web Development",
         description:
             "Lightning-fast, SEO-friendly web apps built with Next.js, React, and modern JavaScript. From MVP to scale.",
-        href: "/contact",
+        simpleExplanation:
+            "We build websites that load super fast and work smoothly. Like building with the best LEGO blocks for the web!",
+        tools: ["Next.js", "React", "TypeScript"],
     },
     {
         icon: LayoutDashboard,
@@ -33,7 +36,9 @@ const services = [
         subtitle: "Design",
         description:
             "Complex workflows made simple. We design dashboards that users actually enjoy using—clean, data-rich, and delightful.",
-        href: "/contact",
+        simpleExplanation:
+            "We create control panels where you can see all your important info at a glance. Like a car dashboard, but for your business!",
+        tools: ["Data Viz", "Charts", "Analytics"],
     },
     {
         icon: Sparkles,
@@ -41,7 +46,9 @@ const services = [
         subtitle: "for Digital Products",
         description:
             "Logos, color systems, and brand guidelines that resonate. We build the visual language your product deserves.",
-        href: "/contact",
+        simpleExplanation:
+            "We give your business a unique look that people remember. Like picking the perfect outfit that shows who you are!",
+        tools: ["Logo Design", "Colors", "Typography"],
     },
     {
         icon: Layers,
@@ -49,7 +56,9 @@ const services = [
         subtitle: "& Component Libraries",
         description:
             "Figma component libraries and documentation so your team moves fast without sacrificing consistency.",
-        href: "/contact",
+        simpleExplanation:
+            "We create a toolkit of reusable design pieces so your team can build faster. Like having pre-made puzzle pieces that always fit!",
+        tools: ["Components", "Documentation", "Figma"],
     },
 ];
 
@@ -90,47 +99,93 @@ export function ServicesSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="group perspective-1000"
                         >
-                            <Link
-                                href={service.href}
-                                className="group block h-full p-6 md:p-8 bg-white dark:bg-neutral-800/50 rounded-2xl border border-neutral-200 dark:border-neutral-700/50 hover:border-violet-300 dark:hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-300"
-                            >
-                                {/* Icon */}
-                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-                                    <service.icon className="w-6 h-6 text-violet-500" />
+                            {/* Book Card Container */}
+                            <div className="relative h-[320px] md:h-[350px]" style={{ perspective: "1000px" }}>
+                                {/* Inner Page (revealed on hover) */}
+                                <div className="absolute inset-0 p-6 md:p-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700/50 shadow-lg">
+                                    {/* Simple Explanation */}
+                                    <div className="h-full flex flex-col justify-between">
+                                        <div>
+                                            <p className="text-xs font-medium uppercase tracking-wider text-violet-500 mb-3">
+                                                Simply Put...
+                                            </p>
+                                            <p className="text-neutral-700 dark:text-neutral-300 text-base leading-relaxed mb-4">
+                                                {service.simpleExplanation}
+                                            </p>
+                                        </div>
+
+                                        {/* Tools/Tech Tags */}
+                                        <div>
+                                            <p className="text-xs font-medium uppercase tracking-wider text-neutral-400 mb-2">
+                                                Tools We Use
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {service.tools.map((tool) => (
+                                                    <span
+                                                        key={tool}
+                                                        className="px-3 py-1 text-xs bg-violet-100 dark:bg-violet-500/20 text-violet-600 dark:text-violet-300 rounded-full"
+                                                    >
+                                                        {tool}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                {/* Title */}
-                                <h3 className="font-serif text-xl md:text-2xl mb-1">
-                                    {service.title}
-                                </h3>
-                                <p className="text-sm text-violet-500 dark:text-violet-400 mb-3">
-                                    {service.subtitle}
-                                </p>
-
-                                {/* Description */}
-                                <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
-                                    {service.description}
-                                </p>
-
-                                {/* Arrow indicator */}
-                                <div className="mt-4 flex items-center text-sm text-neutral-400 group-hover:text-violet-500 transition-colors">
-                                    <span>Learn more</span>
-                                    <svg
-                                        className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
+                                {/* Cover (flips on hover) */}
+                                <div
+                                    className="absolute inset-0 p-6 md:p-8 bg-white dark:bg-neutral-800/90 rounded-2xl border border-neutral-200 dark:border-neutral-700/50 shadow-xl cursor-pointer transition-all duration-500 group-hover:shadow-2xl"
+                                    style={{
+                                        transformOrigin: "left center",
+                                        transformStyle: "preserve-3d",
+                                        backfaceVisibility: "hidden",
+                                    }}
+                                >
+                                    <div
+                                        className="h-full flex flex-col transition-transform duration-500 ease-out group-hover:[transform:rotateY(-80deg)]"
+                                        style={{ transformOrigin: "left center" }}
                                     >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M9 5l7 7-7 7"
-                                        />
-                                    </svg>
+                                        {/* Icon */}
+                                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                                            <service.icon className="w-6 h-6 text-violet-500" />
+                                        </div>
+
+                                        {/* Title */}
+                                        <h3 className="font-serif text-xl md:text-2xl mb-1">
+                                            {service.title}
+                                        </h3>
+                                        <p className="text-sm text-violet-500 dark:text-violet-400 mb-3">
+                                            {service.subtitle}
+                                        </p>
+
+                                        {/* Description */}
+                                        <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed flex-grow">
+                                            {service.description}
+                                        </p>
+
+                                        {/* Hover hint */}
+                                        <div className="mt-4 flex items-center text-sm text-neutral-400 group-hover:text-violet-500 transition-colors">
+                                            <span>Hover to learn more</span>
+                                            <svg
+                                                className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="M9 5l7 7-7 7"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
-                            </Link>
+                            </div>
                         </motion.div>
                     ))}
                 </div>
