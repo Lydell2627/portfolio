@@ -137,19 +137,16 @@ export function ServicesSection() {
 
                                 {/* Cover (flips on hover) */}
                                 <div
-                                    className="absolute inset-0 p-6 md:p-8 bg-white dark:bg-neutral-800/90 rounded-2xl border border-neutral-200 dark:border-neutral-700/50 shadow-xl cursor-pointer transition-all duration-500 group-hover:shadow-2xl"
+                                    className="absolute inset-0 p-6 md:p-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700/50 shadow-xl cursor-pointer transition-transform duration-500 ease-out group-hover:[transform:rotateY(-80deg)] group-hover:shadow-2xl"
                                     style={{
                                         transformOrigin: "left center",
                                         transformStyle: "preserve-3d",
                                         backfaceVisibility: "hidden",
                                     }}
                                 >
-                                    <div
-                                        className="h-full flex flex-col transition-transform duration-500 ease-out group-hover:[transform:rotateY(-80deg)]"
-                                        style={{ transformOrigin: "left center" }}
-                                    >
+                                    <div className="h-full flex flex-col">
                                         {/* Icon */}
-                                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 flex items-center justify-center mb-5">
                                             <service.icon className="w-6 h-6 text-violet-500" />
                                         </div>
 
@@ -167,10 +164,10 @@ export function ServicesSection() {
                                         </p>
 
                                         {/* Hover hint */}
-                                        <div className="mt-4 flex items-center text-sm text-neutral-400 group-hover:text-violet-500 transition-colors">
+                                        <div className="mt-4 flex items-center text-sm text-neutral-400">
                                             <span>Hover to learn more</span>
                                             <svg
-                                                className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"
+                                                className="w-4 h-4 ml-1"
                                                 fill="none"
                                                 stroke="currentColor"
                                                 viewBox="0 0 24 24"
