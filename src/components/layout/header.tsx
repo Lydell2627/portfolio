@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 interface SiteSettings {
     siteName?: string;
@@ -114,12 +114,6 @@ export function Header({ siteSettings }: HeaderProps) {
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [mounted, setMounted] = useState(false);
-    const { theme, setTheme } = useTheme();
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -258,21 +252,8 @@ export function Header({ siteSettings }: HeaderProps) {
                         className="bg-transparent border-transparent md:bg-neutral-900 md:dark:bg-white md:border-neutral-800"
                     >
                         <div className="flex items-center gap-2 md:gap-4 pr-1 md:pr-0">
-                            {/* Theme Toggle */}
-                            <motion.button
-                                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                                className="w-8 h-8 flex items-center justify-center hover:opacity-60 transition-opacity"
-                                whileHover={{ rotate: 15 }}
-                                whileTap={{ scale: 0.9 }}
-                                aria-label="Toggle theme"
-                                suppressHydrationWarning
-                            >
-                                {mounted && (theme === "dark" ? (
-                                    <Sun className="w-4 h-4" />
-                                ) : (
-                                    <Moon className="w-4 h-4" />
-                                ))}
-                            </motion.button>
+                            {/* Animated Theme Toggle */}
+                            <ThemeToggle />
 
                             {/* Book a call CTA - Hidden on Mobile to save space */}
                             <Link
