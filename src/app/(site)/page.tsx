@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       "Premium UI/UX design and Next.js development for startups. Launch beautiful, high-converting products.",
   },
   alternates: {
-    canonical: "/",
+    canonical: "https://difusys.com/",
   },
 };
 
