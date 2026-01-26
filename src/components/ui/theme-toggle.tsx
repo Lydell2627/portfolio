@@ -62,7 +62,7 @@ export function ThemeToggle() {
                     cursor: pointer;
                     inset: 0;
                     background-color: #1a1a2e;
-                    transition: 0.4s;
+                    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                     border-radius: 30px;
                     overflow: hidden;
                 }
@@ -75,8 +75,8 @@ export function ThemeToggle() {
                     border-radius: 50%;
                     left: 0.35em;
                     bottom: 0.35em;
-                    transition: 0.4s;
-                    transition-timing-function: cubic-bezier(0.81, -0.04, 0.38, 1.5);
+                    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                                box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                     box-shadow: inset 6px -3px 0px 0px #fff;
                 }
 
@@ -95,26 +95,31 @@ export function ThemeToggle() {
                     position: absolute;
                     width: 3px;
                     height: 3px;
-                    transition: all 0.4s;
+                    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                                transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
                 }
 
                 .star-1 {
                     left: 2em;
                     top: 0.4em;
+                    transition-delay: 0.1s;
                 }
 
                 .star-2 {
                     left: 1.7em;
                     top: 1em;
+                    transition-delay: 0.15s;
                 }
 
                 .star-3 {
                     left: 2.4em;
                     top: 0.7em;
+                    transition-delay: 0.05s;
                 }
 
                 input:checked ~ .theme-slider .star {
                     opacity: 0;
+                    transform: scale(0) rotate(180deg);
                 }
 
                 .cloud {
@@ -123,11 +128,14 @@ export function ThemeToggle() {
                     bottom: -1em;
                     left: -0.8em;
                     opacity: 0;
-                    transition: all 0.4s;
+                    transform: translateX(-10px);
+                    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+                                transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s;
                 }
 
                 input:checked ~ .theme-slider .cloud {
                     opacity: 1;
+                    transform: translateX(0);
                 }
             `}</style>
         </label>
