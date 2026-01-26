@@ -207,7 +207,11 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0a0a0a" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        {/* Favicon - multiple formats for better compatibility */}
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="512x512" />
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192" />
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <JsonLd />
       </head>
       <body
