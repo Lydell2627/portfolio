@@ -205,6 +205,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+        {/* Preconnect to speed up external resources */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0a0a0a" />
         {/* Favicon - multiple formats for better compatibility */}

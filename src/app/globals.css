@@ -374,6 +374,36 @@ button {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   HERO FLOAT ANIMATIONS - Pure CSS for better LCP
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(30px, -20px);
+  }
+}
+
+@keyframes float-slow-reverse {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-40px, 30px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 20s ease-in-out infinite;
+}
+
+.animate-float-slow-reverse {
+  animation: float-slow-reverse 25s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    PROJECT CARD STYLING
    ═══════════════════════════════════════════════════════════════════════════ */
 

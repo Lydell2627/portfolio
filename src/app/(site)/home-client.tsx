@@ -75,33 +75,15 @@ export function HomePageClient({ projects, testimonials, siteName = "STUDIO" }: 
                 ref={heroRef}
                 className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-16 md:pt-20 lg:pt-24 pb-6"
             >
-                {/* Animated Background Elements */}
-                {/* Performance: will-change hints for GPU acceleration, slower animations for mobile */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {/* Gradient orbs - Responsive sizing to prevent mobile overflow */}
-                    <motion.div
-                        className="absolute top-1/4 -left-1/2 md:-left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-transparent blur-3xl will-change-transform"
-                        animate={{
-                            x: [0, 30, 0],
-                            y: [0, -20, 0],
-                        }}
-                        transition={{
-                            duration: 20, // Slower = less GPU work
-                            repeat: Infinity,
-                            ease: "linear" // Linear is more performant than easeInOut
-                        }}
+                {/* Animated Background Elements - Optimized for performance */}
+                {/* Using CSS animations instead of JS for better LCP */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ contain: 'layout paint' }}>
+                    {/* Gradient orbs - Pure CSS animation for better performance */}
+                    <div
+                        className="absolute top-1/4 -left-1/2 md:-left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-transparent blur-3xl animate-float-slow"
                     />
-                    <motion.div
-                        className="absolute bottom-1/4 -right-1/2 md:-right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] rounded-full bg-gradient-to-bl from-cyan-500/10 via-blue-500/5 to-transparent blur-3xl will-change-transform"
-                        animate={{
-                            x: [0, -40, 0],
-                            y: [0, 30, 0],
-                        }}
-                        transition={{
-                            duration: 25, // Slower = less GPU work
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
+                    <div
+                        className="absolute bottom-1/4 -right-1/2 md:-right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] rounded-full bg-gradient-to-bl from-cyan-500/10 via-blue-500/5 to-transparent blur-3xl animate-float-slow-reverse"
                     />
                 </div>
 
