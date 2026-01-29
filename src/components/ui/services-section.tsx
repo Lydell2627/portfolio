@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
     Palette,
@@ -63,6 +64,12 @@ const services = [
 ];
 
 export function ServicesSection() {
+    const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+
+    const handleCardClick = (index: number) => {
+        setFlippedIndex(flippedIndex === index ? null : index);
+    };
+
     return (
         <section className="section bg-neutral-50 dark:bg-neutral-900/50">
             <div className="container">
@@ -92,99 +99,113 @@ export function ServicesSection() {
 
                 {/* Services Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {services.map((service, index) => (
-                        <motion.div
-                            key={service.title}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="group perspective-1000"
-                        >
-                            {/* Book Card Container */}
-                            <div className="relative h-[320px] md:h-[350px]" style={{ perspective: "1000px" }}>
-                                {/* Inner Page (revealed on hover) */}
-                                <div className="absolute inset-0 p-6 md:p-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700/50 shadow-lg">
-                                    {/* Simple Explanation */}
-                                    <div className="h-full flex flex-col justify-between">
-                                        <div>
-                                            <p className="text-xs font-medium uppercase tracking-wider text-violet-500 mb-3">
-                                                Simply Put...
-                                            </p>
-                                            <p className="text-neutral-700 dark:text-neutral-300 text-base leading-relaxed mb-4">
-                                                {service.simpleExplanation}
-                                            </p>
-                                        </div>
+                    {services.map((service, index) => {
+                        const isFlipped = flippedIndex === index;
 
-                                        {/* Tools/Tech Tags */}
-                                        <div>
-                                            <p className="text-xs font-medium uppercase tracking-wider text-neutral-400 mb-2">
-                                                Tools We Use
+                        return (
+                            <motion.div
+                                key={service.title}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                className="perspective-1000"
+                            >
+                                {/* Book Card Container */}
+                                <div
+                                    className="relative h-[320px] md:h-[350px] cursor-pointer"
+                                    style={{ perspective: "1000px" }}
+                                    onClick={() => handleCardClick(index)}
+                                >
+                                    {/* Inner Page (revealed on flip) */}
+                                    <div className="absolute inset-0 p-6 md:p-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700/50 shadow-lg">
+                                        {/* Simple Explanation */}
+                                        <div className="h-full flex flex-col justify-between">
+                                            <div>
+                                                <p className="text-xs font-medium uppercase tracking-wider text-violet-500 mb-3">
+                                                    Simply Put...
+                                                </p>
+                                                <p className="text-neutral-700 dark:text-neutral-300 text-base leading-relaxed mb-4">
+                                                    {service.simpleExplanation}
+                                                </p>
+                                            </div>
+
+                                            {/* Tools/Tech Tags */}
+                                            <div>
+                                                <p className="text-xs font-medium uppercase tracking-wider text-neutral-400 mb-2">
+                                                    Tools We Use
+                                                </p>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {service.tools.map((tool) => (
+                                                        <span
+                                                            key={tool}
+                                                            className="px-3 py-1 text-xs bg-violet-100 dark:bg-violet-500/20 text-violet-600 dark:text-violet-300 rounded-full"
+                                                        >
+                                                            {tool}
+                                                        </span>
+                                                    ))}
+                                                </div>
+
+                                                {/* Tap hint */}
+                                                <p className="mt-4 text-xs text-neutral-400">
+                                                    Tap to close
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Cover (flips on click) */}
+                                    <div
+                                        className="absolute inset-0 p-6 md:p-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700/50 shadow-xl transition-transform duration-500 ease-out"
+                                        style={{
+                                            transformOrigin: "left center",
+                                            transformStyle: "preserve-3d",
+                                            backfaceVisibility: "hidden",
+                                            transform: isFlipped ? "rotateY(-80deg)" : "rotateY(0deg)",
+                                        }}
+                                    >
+                                        <div className="h-full flex flex-col">
+                                            {/* Icon */}
+                                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 flex items-center justify-center mb-5">
+                                                <service.icon className="w-6 h-6 text-violet-500" />
+                                            </div>
+
+                                            {/* Title */}
+                                            <h3 className="font-serif text-xl md:text-2xl mb-1">
+                                                {service.title}
+                                            </h3>
+                                            <p className="text-sm text-violet-500 dark:text-violet-400 mb-3">
+                                                {service.subtitle}
                                             </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {service.tools.map((tool) => (
-                                                    <span
-                                                        key={tool}
-                                                        className="px-3 py-1 text-xs bg-violet-100 dark:bg-violet-500/20 text-violet-600 dark:text-violet-300 rounded-full"
-                                                    >
-                                                        {tool}
-                                                    </span>
-                                                ))}
+
+                                            {/* Description */}
+                                            <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed flex-grow">
+                                                {service.description}
+                                            </p>
+
+                                            {/* Tap hint */}
+                                            <div className="mt-4 flex items-center text-sm text-neutral-400">
+                                                <span>Tap to learn more</span>
+                                                <svg
+                                                    className="w-4 h-4 ml-1"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth={2}
+                                                        d="M9 5l7 7-7 7"
+                                                    />
+                                                </svg>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Cover (flips on hover) */}
-                                <div
-                                    className="absolute inset-0 p-6 md:p-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700/50 shadow-xl cursor-pointer transition-transform duration-500 ease-out group-hover:[transform:rotateY(-80deg)] group-hover:shadow-2xl"
-                                    style={{
-                                        transformOrigin: "left center",
-                                        transformStyle: "preserve-3d",
-                                        backfaceVisibility: "hidden",
-                                    }}
-                                >
-                                    <div className="h-full flex flex-col">
-                                        {/* Icon */}
-                                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 flex items-center justify-center mb-5">
-                                            <service.icon className="w-6 h-6 text-violet-500" />
-                                        </div>
-
-                                        {/* Title */}
-                                        <h3 className="font-serif text-xl md:text-2xl mb-1">
-                                            {service.title}
-                                        </h3>
-                                        <p className="text-sm text-violet-500 dark:text-violet-400 mb-3">
-                                            {service.subtitle}
-                                        </p>
-
-                                        {/* Description */}
-                                        <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed flex-grow">
-                                            {service.description}
-                                        </p>
-
-                                        {/* Hover hint */}
-                                        <div className="mt-4 flex items-center text-sm text-neutral-400">
-                                            <span>Hover to learn more</span>
-                                            <svg
-                                                className="w-4 h-4 ml-1"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M9 5l7 7-7 7"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </div>
         </section>
