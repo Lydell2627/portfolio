@@ -3,6 +3,7 @@ import { Inter, Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { getSiteSettings } from "@/lib/sanity";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 
 const inter = Inter({
@@ -225,6 +226,7 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
+        <SpeedInsights />
 
         {/* Google Analytics */}
         <Script
